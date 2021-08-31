@@ -6,4 +6,4 @@ SRCS_CPP = \
 	./src/main.cpp \
 
 run:
-	$(CXX) $(SRCS_CPP) -o application
+	$(CXX) $(SRCS_CPP) -o application $(CPPFLAGS)
