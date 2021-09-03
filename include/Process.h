@@ -5,7 +5,7 @@
 class Process 
 {
 
-private:
+public:
     int arrivalTime;
     int burstTime;
     int p_id;
