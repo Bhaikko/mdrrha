@@ -20,7 +20,8 @@ void Algorithm::WriteToCSV()
     // Fill This
     // Writemode should be Append NOT Overwrite
     // Look CSV format for more info
-    // File format mentioned below
+    // https://people.sc.fsu.edu/~jburkardt/data/csv/csv.html
+    // File format mentioned below for writing
     /*
         name, numberoftestcases, avgTAT, avgWT, nCS
         RR, 2, 3.23, 4.24, 5

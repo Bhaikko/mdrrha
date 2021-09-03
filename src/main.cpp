@@ -8,7 +8,13 @@ std::vector<Process>* processesToExecute;
 
 void FillProcesses()
 {
-    // Later will be imported using CSV File
+    // Code to import data from csv file
+    // Sample csv file for proccesses is in src folder
+    // Look CSV format for more info
+    // https://people.sc.fsu.edu/~jburkardt/data/csv/csv.html
+    // Writemode should be ReadOnly
+
+    // For p_id, use counter to allocate just like SQL does
 
     processesToExecute = new std::vector<Process>();
 
