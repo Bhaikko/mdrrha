@@ -7,6 +7,9 @@
 
 class Algorithm
 {
+private:
+    std::string filenameToWrite;
+
 protected:
     float avgTAT;       // Average Turn Around Time
     float avgWT;        // Average Waiting Time
@@ -20,7 +23,7 @@ public:
 
     virtual void RunAlgo();
     
-    // void WriteToCSV();
+    void WriteToCSV();
 
     ~Algorithm();
 };
