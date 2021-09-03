@@ -7,7 +7,7 @@
 
 class Algorithm
 {
-public:
+protected:
     float avgTAT;       // Average Turn Around Time
     float avgWT;        // Average Waiting Time
     int nCS;            // Context Switches
@@ -19,6 +19,8 @@ public:
     Algorithm(std::vector<Process>* processesToExecute);
 
     virtual void RunAlgo();
+    
+    // void WriteToCSV();
 
     ~Algorithm();
 };

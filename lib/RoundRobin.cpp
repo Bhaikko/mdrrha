@@ -16,6 +16,9 @@ void RoundRobin::RunAlgo()
 
     std::cout << this->name + "Ended for " + std::to_string(processesToExecute->size()) + " processes." << std::endl;
 
+    // Write results such as avgTAT, avgWT, nCS to external .csv file
+    // WriteToCSV();
+
 }
 
 RoundRobin::~RoundRobin()
