@@ -1,33 +1,66 @@
 #include <iostream>
+#include <fstream>
 #include <vector>
 
 #include "./../include/Process.h"
 #include "./../include/RoundRobin.h"
 
-std::vector<Process>* processesToExecute;
+std::string INPUT_FILE_PATH = "./src/sample_input.csv";
 
-void FillProcesses()
+// Code to import data from csv file
+std::vector<Process>* FillProcesses()
 {
-    // Code to import data from csv file
-    // Sample csv file for proccesses is in src folder
-    // Look CSV format for more info
-    // https://people.sc.fsu.edu/~jburkardt/data/csv/csv.html
-    // Writemode should be ReadOnly
+    std::vector<Process>* processesToExecute = new std::vector<Process>();
 
-    // For p_id, use counter to allocate just like SQL does
+    std::fstream dataset(INPUT_FILE_PATH, std::ios::in);
+    if (!dataset) {
+        std::cerr << "Cannot Open " << INPUT_FILE_PATH << std::endl;
+        return nullptr;
+    }
 
-    processesToExecute = new std::vector<Process>();
+    std::string currentLine;
+    int p_id = 0;
 
-    processesToExecute->push_back(Process(1, 1, 2));
-    processesToExecute->push_back(Process(2, 1, 2));
-    processesToExecute->push_back(Process(3, 1, 2));
-    processesToExecute->push_back(Process(4, 1, 2));
-    processesToExecute->push_back(Process(5, 1, 2));
+    while (std::getline(dataset, currentLine)) {
+        if (p_id == 0) {
+            p_id++;
+            continue;
+        }
+
+        std::string currentProcessDetail;
+        int arrivalTime, burstTime;
+
+        // Processing Each Line of .CSV file
+        for (unsigned int i = 0; i < currentLine.length(); i++) {
+            if (currentLine[i] == ',') {
+                arrivalTime = std::stoi(currentProcessDetail);
+                currentProcessDetail = "";
+                continue;
+            }
+
+            currentProcessDetail.push_back(currentLine[i]);
+        }
+
+        burstTime = std::stoi(currentProcessDetail);
+
+        processesToExecute->push_back(Process(
+            p_id++,
+            arrivalTime,
+            burstTime
+        ));
+    }
+
+    return processesToExecute;
+
 }
 
 int main()
 {
-    FillProcesses();
+    std::vector<Process>* processesToExecute = FillProcesses();
+
+    if (!processesToExecute) {
+        return -1;
+    }
 
     RoundRobin roundRobin(processesToExecute);
 
