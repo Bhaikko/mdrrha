@@ -2,14 +2,13 @@
 
 #include <vector>
 #include <string>
+#include <fstream>
 
+#include "./../src/paths.h"
 #include "./Process.h"
 
 class Algorithm
 {
-private:
-    std::string filenameToWrite;
-
 protected:
     float avgTAT;       // Average Turn Around Time
     float avgWT;        // Average Waiting Time
