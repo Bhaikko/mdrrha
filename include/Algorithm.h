@@ -4,8 +4,8 @@
 #include <string>
 #include <fstream>
 
-#include "./../src/paths.h"
 #include "./Process.h"
+#include "./../src/filehandler.h"
 
 class Algorithm
 {
@@ -22,7 +22,7 @@ public:
 
     virtual void RunAlgo();
     
-    void WriteToCSV();
+    void ProcessResult();
 
     ~Algorithm();
 };

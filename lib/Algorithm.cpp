@@ -13,7 +13,7 @@ void Algorithm::RunAlgo() {
 
 }
 
-void Algorithm::WriteToCSV()
+void Algorithm::ProcessResult()
 {
     // File format mentioned below for writing
     /*
@@ -21,33 +21,6 @@ void Algorithm::WriteToCSV()
         RR, 2, 3.23, 4.24, 5
 
     */
-
-    std::cout << std::endl;
-    std::cout << "Writing to File " << OUTPUT_FILE_PATH << std::endl;
-
-    std::fstream outputFileToCheck;
-    outputFileToCheck.open(OUTPUT_FILE_PATH, std::ios_base::in);
-
-    int count = 0;
-    std::string currentLine;
-    while (std::getline(outputFileToCheck, currentLine)) {
-        std::cout << currentLine << std::endl;
-        count++;
-        break;
-    }
-
-    outputFileToCheck.close();
-
-    std::fstream outputFile;
-    outputFile.open(OUTPUT_FILE_PATH, std::ios_base::app);
-    if (!outputFile) {
-        std::cout << "Error Writing to File " << std::endl;
-    }
-
-    if (!count) {
-        // Empty File
-        outputFile << "name, #cases, avgTAT, avgWT, nCS";
-    } 
 
     std::string resultToAppend = 
         "\n" +
@@ -57,7 +30,8 @@ void Algorithm::WriteToCSV()
         std::to_string(this->avgWT) + "," +
         std::to_string(this->nCS);
 
-    outputFile << resultToAppend;
+    WriteToCSV(resultToAppend);
+
 
 }
 

@@ -7,7 +7,7 @@
 
 int main()
 {
-    std::vector<Process>* processesToExecute = FillProcesses();
+    std::vector<Process>* processesToExecute = ReadProcessesFromFile();
 
     if (!processesToExecute) {
         return -1;
