@@ -9,6 +9,7 @@ public:
     int arrivalTime;
     int burstTime;
     int p_id;
+    int completionTime;
 
 public:
     Process(int p_id, int arrivalTime, int burstTime);

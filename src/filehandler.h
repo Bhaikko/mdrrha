@@ -11,7 +11,7 @@
     // Code to import data from csv file
     // The below code only works for specific database schema
     // Won't work as General CSV Parser
-    std::vector<Process>* ReadProcessesFromFile()
+    inline std::vector<Process>* ReadProcessesFromFile()
     {
         std::vector<Process>* processesToExecute = new std::vector<Process>();
 
@@ -57,7 +57,7 @@
     }
 
 
-    bool isFileEmpty(std::string filepath)
+    inline bool isFileEmpty(std::string filepath)
     {
         std::fstream outputFileToCheck;
         outputFileToCheck.open(filepath, std::ios_base::in);
@@ -74,7 +74,7 @@
         return count == 0;
     }
 
-    void WriteToCSV(std::string data)
+    inline void WriteToCSV(std::string data)
     {
         std::fstream outputFile;
         outputFile.open(OUTPUT_FILE_PATH, std::ios_base::app);
