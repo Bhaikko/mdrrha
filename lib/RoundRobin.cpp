@@ -18,10 +18,12 @@ void RoundRobin::RunAlgo()
         //     processesToExecute->at(i).burstTime
         // );
 
-        // Will be replaced After Execution of Algorithm
-        // processesToExecute->at(i).completionTime;
-
+        // Generating Random Completion Time for Testing
+        processesToExecute->at(i).completionTime = rand() % 50 + processesToExecute->at(i).arrivalTime;
     }
+
+    // Generating Random Context Switches for Testing
+    this->nCS = rand() % 50 + 1;    
 
     std::cout << this->name << " Ended for " << processesToExecute->size() << " processes." << std::endl;
 

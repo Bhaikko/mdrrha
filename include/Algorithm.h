@@ -9,6 +9,9 @@
 
 class Algorithm
 {
+private:
+    void CalculateMetrics();
+
 protected:
     float avgTAT;       // Average Turn Around Time
     float avgWT;        // Average Waiting Time

@@ -13,6 +13,31 @@ void Algorithm::RunAlgo() {
 
 }
 
+void Algorithm::CalculateMetrics()
+{
+    int totalTurnaroundTime = 0,
+        totalWaitTime = 0;
+
+    for (unsigned int i = 0; i < this->processesToExecute->size(); i++) {
+        totalTurnaroundTime += (
+            this->processesToExecute->at(i).completionTime - this->processesToExecute->at(i).arrivalTime
+        );
+
+        totalWaitTime += (
+            this->processesToExecute->at(i).completionTime - this->processesToExecute->at(i).arrivalTime - 
+            this->processesToExecute->at(i).burstTime
+        );
+    }
+
+    this->avgTAT = totalTurnaroundTime * 1.0f / processesToExecute->size();
+    this->avgWT = totalWaitTime * 1.0f / processesToExecute->size();
+
+    // TO REMOVE AFTER IMPLEMENTING ALGORITHMS
+    this->avgWT = this->avgWT < 0 ? -this->avgWT : this->avgWT;
+
+    std::cout << avgTAT << " " << avgWT << std::endl;
+}
+
 void Algorithm::ProcessResult()
 {
     // File format mentioned below for writing
@@ -21,6 +46,8 @@ void Algorithm::ProcessResult()
         RR, 2, 3.23, 4.24, 5
 
     */
+
+    CalculateMetrics();
 
     std::string resultToAppend = 
         "\n" +
@@ -36,5 +63,5 @@ void Algorithm::ProcessResult()
 }
 
 Algorithm::~Algorithm() {
-    // delete processesToExecute;
+    delete processesToExecute;
 }
