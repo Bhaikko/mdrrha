@@ -5,6 +5,7 @@ SRCS_CPP = \
 	./lib/Process.cpp \
 	./lib/Algorithm.cpp \
 	./lib/RoundRobin.cpp \
+	./lib/SJF.cpp \
 	./src/main.cpp \
 
 run:
