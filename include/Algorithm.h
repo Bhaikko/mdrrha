@@ -9,8 +9,8 @@
 
 class Algorithm
 {
-private:
-    void CalculateMetrics();
+// private:
+    // void CalculateMetrics();
 
 protected:
     float avgTAT;       // Average Turn Around Time
@@ -24,6 +24,8 @@ public:
     Algorithm(std::vector<Process>* processesToExecute);
 
     virtual void RunAlgo();
+
+    void CalculateMetrics();
     
     void ProcessResult();
 

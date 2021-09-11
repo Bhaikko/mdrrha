@@ -23,7 +23,7 @@ int main()
 
     RoundRobin roundRobin(processesToExecute);
 
-    roundRobin.RunAlgo();
+    roundRobin.RunAlgo(2);
 
     return 0;
 }
