@@ -9,8 +9,6 @@
 
 #include "./../include/RoundRobin.h"
 
-// Will be Removed After implementing CPU Schdeduling Algos
-
 int main()
 {
     srand(time(NULL));
@@ -21,9 +19,9 @@ int main()
         return -1;
     }
 
-    RoundRobin roundRobin(processesToExecute);
+    RoundRobin roundRobin(processesToExecute, 2);
 
-    roundRobin.RunAlgo(2);
+    roundRobin.RunAlgo();
 
     return 0;
 }

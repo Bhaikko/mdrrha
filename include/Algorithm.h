@@ -9,8 +9,8 @@
 
 class Algorithm
 {
-// private:
-    // void CalculateMetrics();
+private:
+    void CalculateMetrics();
 
 protected:
     float avgTAT;       // Average Turn Around Time
@@ -25,9 +25,9 @@ public:
 
     virtual void RunAlgo();
 
-    void CalculateMetrics();
+    // void CalculateMetrics();
     
-    void ProcessResult();
+    void ProcessResult(bool bShouldPrintResults, bool bShouldWriteResults = false);
 
     ~Algorithm();
 };

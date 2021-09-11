@@ -4,11 +4,13 @@
 
 class RoundRobin : public Algorithm
 {
-public:
-    RoundRobin(std::vector<Process>* processesToExecute);
+private:
+    int quantum;
 
-    // virtual void RunAlgo() override;
-    void RunAlgo(int quantum);
+public:
+    RoundRobin(std::vector<Process>* processesToExecute, int quantum);
+
+    virtual void RunAlgo() override;
 
     ~RoundRobin();
 };

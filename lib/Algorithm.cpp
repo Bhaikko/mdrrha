@@ -35,29 +35,41 @@ void Algorithm::CalculateMetrics()
     // TO REMOVE AFTER IMPLEMENTING ALGORITHMS
     this->avgWT = this->avgWT < 0 ? -this->avgWT : this->avgWT;
 
-    std::cout << avgTAT << " " << avgWT << std::endl;
+    // std::cout << avgTAT << " " << avgWT << std::endl;
 }
 
-void Algorithm::ProcessResult()
+void Algorithm::ProcessResult(bool bShouldPrintResults, bool bShouldWriteResults = false)
 {
-    // File format mentioned below for writing
-    /*
-        name, numberoftestcases, avgTAT, avgWT, nCS
-        RR, 2, 3.23, 4.24, 5
-
-    */
-
     CalculateMetrics();
 
-    std::string resultToAppend = 
-        "\n" +
-        this->name + "," + 
-        std::to_string(this->processesToExecute->size()) + "," +
-        std::to_string(this->avgTAT) + "," +
-        std::to_string(this->avgWT) + "," +
-        std::to_string(this->nCS);
+    if (bShouldPrintResults) {
+        std::cout << std::endl;
 
-    WriteToCSV(resultToAppend);
+        std::cout << "Name: " << name;
+        std::cout << "Test Cases: " << processesToExecute->size();
+        std::cout << "Average TAT: " << avgTAT;
+        std::cout << "Average WT: " << avgWT;
+        std::cout << "Context Switches: " << nCS;
+    }
+
+    if (bShouldWriteResults) {
+        // File format mentioned below for writing
+        /*
+            name, numberoftestcases, avgTAT, avgWT, nCS
+            RR, 2, 3.23, 4.24, 5
+
+        */
+
+        std::string resultToAppend = 
+            "\n" +
+            this->name + "," + 
+            std::to_string(this->processesToExecute->size()) + "," +
+            std::to_string(this->avgTAT) + "," +
+            std::to_string(this->avgWT) + "," +
+            std::to_string(this->nCS);
+
+        WriteToCSV(resultToAppend);
+    }
 
 
 }

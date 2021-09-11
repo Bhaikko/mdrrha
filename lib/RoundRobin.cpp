@@ -1,11 +1,12 @@
 #include "./../include/RoundRobin.h"
 
-RoundRobin::RoundRobin(std::vector<Process>* processesToExecute) : Algorithm(processesToExecute)
+RoundRobin::RoundRobin(std::vector<Process>* processesToExecute, int quantum) : Algorithm(processesToExecute)
 {
     this->name = "RR";
+    this->quantum = quantum;
 }
 
-void RoundRobin::RunAlgo(int quantum)
+void RoundRobin::RunAlgo()
 {
     Algorithm::RunAlgo();
 
@@ -52,20 +53,16 @@ void RoundRobin::RunAlgo(int quantum)
             processesToExecute->at(i).arrivalTime,
             processesToExecute->at(i).burstTime
         );
-
-        // Calculating completion time of every process
-        processesToExecute->at(i).completionTime = tat[i] + processesToExecute->at(i).arrivalTime;
     }
 
-    // Generating Random Context Switches for Testing
-    this->nCS = rand() % 50 + 1;    
-
-    Algorithm::CalculateMetrics();
+    // Algorithm::CalculateMetrics();
 
     std::cout << this->name << " Ended for " << processesToExecute->size() << " processes." << std::endl;
 
+    // Read Function Definition before calling
+    // Prints Result on Console after Calculating avgTAT, etc
     // Write results such as avgTAT, avgWT, nCS to external .csv file
-    ProcessResult();
+    ProcessResult(true, false);
 
 }
 
