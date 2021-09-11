@@ -50,6 +50,8 @@ void Algorithm::ProcessResult(bool bShouldPrintResults, bool bShouldWriteResults
         std::cout << "Average TAT: " << avgTAT;
         std::cout << "Average WT: " << avgWT;
         std::cout << "Context Switches: " << nCS;
+
+        std::cout << std::endl;
     }
 
     if (bShouldWriteResults) {

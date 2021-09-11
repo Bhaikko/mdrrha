@@ -11,6 +11,7 @@ void RoundRobin::RunAlgo()
     Algorithm::RunAlgo();
 
     int *rem_bt = new int[processesToExecute->size()];
+
     int *wt = new int[processesToExecute->size()];
     int *tat = new int[processesToExecute->size()];
 
@@ -28,6 +29,15 @@ void RoundRobin::RunAlgo()
                 if(rem_bt[i] > quantum){
                     t += quantum;
                     rem_bt[i] -= quantum;
+
+                    processesToExecute->at(i).burstTime -= quantum;
+
+                    if (processesToExecute->at(i).Execute(quantum)) {
+                        // Dont push in queue
+                        // Update Completion time to Current Time
+                    } else {
+                        // Push into queue
+                    }
                 }
                 else{
                     t += rem_bt[i];

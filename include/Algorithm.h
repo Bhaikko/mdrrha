@@ -24,10 +24,8 @@ public:
     Algorithm(std::vector<Process>* processesToExecute);
 
     virtual void RunAlgo();
-
-    // void CalculateMetrics();
     
-    void ProcessResult(bool bShouldPrintResults, bool bShouldWriteResults = false);
+    void ProcessResult(bool bShouldPrintResults, bool bShouldWriteResults);
 
     ~Algorithm();
 };
