@@ -1,11 +1,10 @@
 #pragma once
 
+#include <queue>
 #include "./Algorithm.h"
 
 class SJF : public Algorithm
 {
-private:
-    int quantum;
 
 public:
     SJF(std::vector<Process> *processesToExecute, int quantum);
