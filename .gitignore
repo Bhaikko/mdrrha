@@ -1,3 +1,6 @@
 application
 *.exe
 .vs
+.vscode
+
+temp.cpp

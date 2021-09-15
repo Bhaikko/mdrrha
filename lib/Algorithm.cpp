@@ -1,6 +1,6 @@
 #include "./../include/Algorithm.h"
 
-Algorithm::Algorithm(std::vector<Process>* processesToExecute)
+Algorithm::Algorithm(std::vector<Process> *processesToExecute)
 {
     this->avgTAT = 0.0f;
     this->avgWT = 0.0f;
@@ -8,9 +8,9 @@ Algorithm::Algorithm(std::vector<Process>* processesToExecute)
     this->processesToExecute = processesToExecute;
 }
 
-void Algorithm::RunAlgo() {
+void Algorithm::RunAlgo()
+{
     std::cout << name << " Started for " << this->processesToExecute->size() << " processes." << std::endl;
-
 }
 
 void Algorithm::CalculateMetrics()
@@ -18,15 +18,12 @@ void Algorithm::CalculateMetrics()
     int totalTurnaroundTime = 0,
         totalWaitTime = 0;
 
-    for (unsigned int i = 0; i < this->processesToExecute->size(); i++) {
-        totalTurnaroundTime += (
-            this->processesToExecute->at(i).completionTime - this->processesToExecute->at(i).arrivalTime
-        );
+    for (unsigned int i = 0; i < this->processesToExecute->size(); i++)
+    {
+        totalTurnaroundTime += (this->processesToExecute->at(i).completionTime - this->processesToExecute->at(i).arrivalTime);
 
-        totalWaitTime += (
-            this->processesToExecute->at(i).completionTime - this->processesToExecute->at(i).arrivalTime - 
-            this->processesToExecute->at(i).burstTime
-        );
+        totalWaitTime += (this->processesToExecute->at(i).completionTime - this->processesToExecute->at(i).arrivalTime -
+                          this->processesToExecute->at(i).burstTime);
     }
 
     this->avgTAT = totalTurnaroundTime * 1.0f / processesToExecute->size();
@@ -42,19 +39,21 @@ void Algorithm::ProcessResult(bool bShouldPrintResults, bool bShouldWriteResults
 {
     CalculateMetrics();
 
-    if (bShouldPrintResults) {
+    if (bShouldPrintResults)
+    {
         std::cout << std::endl;
 
         std::cout << "Name: " << name;
-        std::cout << "Test Cases: " << processesToExecute->size();
-        std::cout << "Average TAT: " << avgTAT;
-        std::cout << "Average WT: " << avgWT;
-        std::cout << "Context Switches: " << nCS;
+        std::cout << " Test Cases: " << processesToExecute->size();
+        std::cout << " Average TAT: " << avgTAT;
+        std::cout << " Average WT: " << avgWT;
+        std::cout << " Context Switches: " << nCS;
 
         std::cout << std::endl;
     }
 
-    if (bShouldWriteResults) {
+    if (bShouldWriteResults)
+    {
         // File format mentioned below for writing
         /*
             name, numberoftestcases, avgTAT, avgWT, nCS
@@ -62,9 +61,9 @@ void Algorithm::ProcessResult(bool bShouldPrintResults, bool bShouldWriteResults
 
         */
 
-        std::string resultToAppend = 
+        std::string resultToAppend =
             "\n" +
-            this->name + "," + 
+            this->name + "," +
             std::to_string(this->processesToExecute->size()) + "," +
             std::to_string(this->avgTAT) + "," +
             std::to_string(this->avgWT) + "," +
@@ -72,10 +71,9 @@ void Algorithm::ProcessResult(bool bShouldPrintResults, bool bShouldWriteResults
 
         WriteToCSV(resultToAppend);
     }
-
-
 }
 
-Algorithm::~Algorithm() {
+Algorithm::~Algorithm()
+{
     delete processesToExecute;
 }

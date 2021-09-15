@@ -1,5 +1,6 @@
 #include <iostream>
-
+//for priority queue
+#include <queue>
 // Only For Random Generation
 #include <stdlib.h>
 #include <time.h>
@@ -8,20 +9,25 @@
 #include "./filehandler.h"
 
 #include "./../include/RoundRobin.h"
+#include "./../include/SJF.h"
 
 int main()
 {
     srand(time(NULL));
-    
-    std::vector<Process>* processesToExecute = ReadProcessesFromFile();
 
-    if (!processesToExecute) {
+    std::vector<Process> *processesToExecute = ReadProcessesFromFile();
+
+    if (!processesToExecute)
+    {
         return -1;
     }
 
-    RoundRobin roundRobin(processesToExecute, 2);
+    // RoundRobin roundRobin(processesToExecute, 2);
 
-    roundRobin.RunAlgo();
+    // roundRobin.RunAlgo();
+    SJF sjf(processesToExecute, 2);
+
+    sjf.RunAlgo();
 
     return 0;
 }
