@@ -5,14 +5,6 @@ SJF::SJF(std::vector<Process> processesToExecute) : Algorithm(processesToExecute
     this->name = "SJF";
 }
 
-struct CompareProcess : public std::binary_function<Process *, Process *, bool>
-{
-    bool operator()(const Process *lhs, const Process *rhs) const
-    {
-        return lhs->burstTime > rhs->burstTime;
-    }
-};
-
 void SJF::RunAlgo()
 {
     Algorithm::RunAlgo();
