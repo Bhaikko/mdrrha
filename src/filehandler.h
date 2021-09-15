@@ -17,6 +17,7 @@
 
         std::fstream dataset(INPUT_FILE_PATH, std::ios::in);
         if (!dataset) {
+            
             std::cerr << "Cannot Open " << INPUT_FILE_PATH << std::endl;
             return nullptr;
         }
