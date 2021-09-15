@@ -15,17 +15,18 @@ int main()
 {
     srand(time(NULL));
 
-    std::vector<Process> *processesToExecute = ReadProcessesFromFile();
+    std::vector<Process> processesToExecute = ReadProcessesFromFile();
 
-    if (!processesToExecute)
+    if (processesToExecute.size() == 0)
     {
+        std::cerr << "Error in Reading Processes." << std::endl;
         return -1;
     }
 
     // RoundRobin roundRobin(processesToExecute, 2);
 
     // roundRobin.RunAlgo();
-    SJF sjf(processesToExecute, 2);
+    SJF sjf(processesToExecute);
 
     sjf.RunAlgo();
 

@@ -8,7 +8,7 @@ private:
     int quantum;
 
 public:
-    RoundRobin(std::vector<Process>* processesToExecute, int quantum);
+    RoundRobin(std::vector<Process> processesToExecute, int quantum);
 
     virtual void RunAlgo() override;
 

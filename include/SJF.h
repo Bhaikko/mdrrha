@@ -7,7 +7,7 @@ class SJF : public Algorithm
 {
 
 public:
-    SJF(std::vector<Process> *processesToExecute, int quantum);
+    SJF(std::vector<Process> processesToExecute);
 
     virtual void RunAlgo() override;
 

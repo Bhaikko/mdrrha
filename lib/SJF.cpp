@@ -1,6 +1,6 @@
 #include "./../include/SJF.h"
 
-SJF::SJF(std::vector<Process> *processesToExecute, int quantum) : Algorithm(processesToExecute)
+SJF::SJF(std::vector<Process> processesToExecute) : Algorithm(processesToExecute)
 {
     this->name = "SJF";
 }
@@ -19,11 +19,11 @@ void SJF::RunAlgo()
     std::priority_queue<Process *, std::vector<Process *>, CompareProcess> ready_q;
 
     int t = 0; // current time
-    for (unsigned int i = 0; i < processesToExecute->size(); i++)
+    for (unsigned int i = 0; i < processesToExecute.size(); i++)
     {
-        if (processesToExecute->at(i).arrivalTime <= t)
+        if (processesToExecute.at(i).arrivalTime <= t)
         {
-            ready_q.push(&(processesToExecute->at(i)));
+            ready_q.push(&(processesToExecute.at(i)));
         }
         else
         {
@@ -50,7 +50,7 @@ void SJF::RunAlgo()
         this->nCS++;
     }
 
-    std::cout << this->name << " Ended for " << processesToExecute->size() << " processes." << std::endl;
+    std::cout << this->name << " Ended for " << processesToExecute.size() << " processes." << std::endl;
 
     // Read Function Definition before calling
     // Prints Result on Console after Calculating avgTAT, etc
@@ -60,4 +60,5 @@ void SJF::RunAlgo()
 
 SJF::~SJF()
 {
+
 }
