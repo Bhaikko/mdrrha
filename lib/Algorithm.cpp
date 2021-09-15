@@ -28,11 +28,6 @@ void Algorithm::CalculateMetrics()
 
     this->avgTAT = totalTurnaroundTime * 1.0f / processesToExecute.size();
     this->avgWT = totalWaitTime * 1.0f / processesToExecute.size();
-
-    // TO REMOVE AFTER IMPLEMENTING ALGORITHMS
-    this->avgWT = this->avgWT < 0 ? -this->avgWT : this->avgWT;
-
-    // std::cout << avgTAT << " " << avgWT << std::endl;
 }
 
 void Algorithm::ProcessResult(bool bShouldPrintResults, bool bShouldWriteResults = false)

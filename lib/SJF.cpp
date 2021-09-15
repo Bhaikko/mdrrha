@@ -8,6 +8,7 @@ SJF::SJF(std::vector<Process> processesToExecute) : Algorithm(processesToExecute
 void SJF::RunAlgo()
 {
     Algorithm::RunAlgo();
+    
     std::priority_queue<Process *, std::vector<Process *>, CompareProcess> ready_q;
 
     int t = 0; // current time
@@ -34,6 +35,7 @@ void SJF::RunAlgo()
             }
         }
     }
+
     while (!ready_q.empty())
     {
         t += ready_q.top()->burstTime;
