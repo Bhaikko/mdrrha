@@ -15,13 +15,13 @@ private:
     typedef std::priority_queue<Process*, std::vector<Process* >, MinPriorityQueueCompare> minPQ;
     
     minPQ queue;
-    int sum = 0;
+    int sum;
 
 public:
     MeanPriorityQueue();
     void AddProcess(Process& process); 
     Process* Top();
     void Pop();
-    float GetMeanBurstTime();
+    float GetMean();
 
 };
