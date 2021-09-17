@@ -19,9 +19,11 @@ private:
 
 public:
     MeanPriorityQueue();
-    void AddProcess(Process& process); 
+    
+    void Push(Process& process); 
     Process* Top();
     void Pop();
     float GetMean();
+    int GetQueueSize();
 
 };

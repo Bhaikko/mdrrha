@@ -2,13 +2,12 @@
 
 #include "./filehandler.h"
 
+#include "./../include/MeanPriorityQueue.h"
 #include "./../include/RoundRobin.h"
 #include "./../include/SJF.h"
 
 int main()
 {
-    srand(time(NULL));
-
     std::vector<Process> processesToExecute = ReadProcessesFromFile();
 
     if (processesToExecute.size() == 0)
@@ -17,12 +16,12 @@ int main()
         return -1;
     }
 
-    // RoundRobin roundRobin(processesToExecute, 2);
+    // // RoundRobin roundRobin(processesToExecute, 2);
 
-    // roundRobin.RunAlgo();
-    SJF sjf(processesToExecute);
+    // // roundRobin.RunAlgo();
+    // SJF sjf(processesToExecute);
 
-    sjf.RunAlgo();
+    // sjf.RunAlgo();
 
     return 0;
 }

@@ -5,7 +5,7 @@ MeanPriorityQueue::MeanPriorityQueue()
     sum = 0;
 }
 
-void MeanPriorityQueue::AddProcess(Process& process)
+void MeanPriorityQueue::Push(Process& process)
 {
     sum += process.burstTime;
     queue.push(&process);
@@ -28,5 +28,7 @@ void MeanPriorityQueue::Pop()
 
 float MeanPriorityQueue::GetMean()
 {
-    return sum / (queue.size() * 1.0f);
+    return queue.size() == 0 ? -1.0f : sum / (queue.size() * 1.0f);
 }
+
+int MeanPriorityQueue::GetQueueSize() { return queue.size(); }
