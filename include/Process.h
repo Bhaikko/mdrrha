@@ -2,19 +2,20 @@
 
 #include <iostream>
 
-class Process 
+class Process
 {
 
 public:
     int arrivalTime;
-    int burstTime;
+    float burstTime;
     int p_id;
-    int completionTime;
+    float completionTime;
 
 public:
     Process(int p_id, int arrivalTime, int burstTime);
+    // Process(Process &p);
 
     bool Execute(int executionTime);
-    
+
     ~Process();
 };
