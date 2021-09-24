@@ -12,7 +12,7 @@ void RoundRobin::RunAlgo()
     Algorithm::RunAlgo();
 
     std::queue<Process*> rq;
-    int currentTime = 0;
+    int currentTime = processesToExecute[0].arrivalTime;    // Arrival time cannot always be 0
 
     int *original_bt = new int[processesToExecute.size()];
     for(unsigned int i = 0; i < processesToExecute.size(); i++)
@@ -63,6 +63,8 @@ void RoundRobin::RunAlgo()
         
     }
 
+    nCS--;
+
     for(unsigned int i = 0; i < processesToExecute.size(); i++)
     {
         processesToExecute.at(i).burstTime = original_bt[i];
@@ -79,6 +81,7 @@ void RoundRobin::RunAlgo()
     // Prints Result on Console after Calculating avgTAT, etc
     // Write results such as avgTAT, avgWT, nCS to external .csv file
     ProcessResult(true, false);
+
 
 }
 
