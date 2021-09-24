@@ -22,7 +22,7 @@ void Algorithm::CalculateMetrics()
     {
         totalTurnaroundTime += (this->processesToExecute.at(i).completionTime - this->processesToExecute.at(i).arrivalTime);
 
-        totalWaitTime += (this->processesToExecute.at(i).completionTime - this->processesToExecute.at(i).arrivalTime -
+        totalWaitTime += ((this->processesToExecute.at(i).completionTime - this->processesToExecute.at(i).arrivalTime) -
                           this->processesToExecute.at(i).burstTime);
     }
 

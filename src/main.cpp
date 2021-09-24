@@ -16,10 +16,10 @@ int main()
         return -1;
     }
 
-    RoundRobin roundRobin(processesToExecute, 2);
+    RoundRobin roundRobin(processesToExecute, 3);
 
     roundRobin.RunAlgo();
-    
+
     // SJF sjf(processesToExecute);
 
     // sjf.RunAlgo();
