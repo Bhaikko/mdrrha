@@ -44,6 +44,10 @@ void SJF::RunAlgo()
         this->nCS++;
     }
 
+    this->nCS--;
+
+    ListCompletitionTimesOfProcesses();
+
     std::cout << this->name << " Ended for " << processesToExecute.size() << " processes." << std::endl;
 
     // Read Function Definition before calling

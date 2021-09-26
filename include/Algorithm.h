@@ -21,6 +21,9 @@ protected:
 
     std::vector<Process> processesToExecute;
 
+protected:
+    void ListCompletitionTimesOfProcesses();
+
 public:
     Algorithm(std::vector<Process> processesToExecute);
 
