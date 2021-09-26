@@ -4,3 +4,4 @@ application
 .vscode
 
 temp.cpp
+*.log

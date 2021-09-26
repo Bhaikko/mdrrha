@@ -12,7 +12,7 @@ void RoundRobin::RunAlgo()
     Algorithm::RunAlgo();
 
     std::queue<Process*> rq;
-    int currentTime = processesToExecute[0].arrivalTime;    // Arrival time cannot always be 0
+    int currentTime = processesToExecute[0].arrivalTime;
 
     int *original_bt = new int[processesToExecute.size()];
     for(unsigned int i = 0; i < processesToExecute.size(); i++)

@@ -7,7 +7,6 @@ SRCS_CPP = \
 	./lib/RoundRobin.cpp \
 	./lib/SJF.cpp \
 	./lib/MeanPriorityQueue.cpp \
-	./lib/DRRHA.cpp \
 	./src/main.cpp \
 
 run:

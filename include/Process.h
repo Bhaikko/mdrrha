@@ -5,17 +5,23 @@
 class Process
 {
 
+private:
+int originalBT;
+
 public:
     int arrivalTime;
-    float burstTime;
+    float burstTime;    // Discuss about this
     int p_id;
     float completionTime;
 
+
 public:
     Process(int p_id, int arrivalTime, int burstTime);
-    // Process(Process &p);
 
     bool Execute(int executionTime);
 
     ~Process();
+
+public:
+    int GetOriginalBT() { return originalBT; }
 };

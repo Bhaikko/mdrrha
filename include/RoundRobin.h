@@ -8,9 +8,7 @@ class RoundRobin : public Algorithm
 {
 private:
     int quantum;
-
-    Process* getMinATProcess(std::vector<Process> processesToExecute);
-
+    
 public:
     RoundRobin(std::vector<Process> processesToExecute, int quantum);
 
