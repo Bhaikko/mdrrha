@@ -23,7 +23,7 @@ void Algorithm::CalculateMetrics()
         totalTurnaroundTime += (this->processesToExecute.at(i).completionTime - this->processesToExecute.at(i).arrivalTime);
 
         totalWaitTime += ((this->processesToExecute.at(i).completionTime - this->processesToExecute.at(i).arrivalTime) -
-                          this->processesToExecute.at(i).burstTime);
+                          this->processesToExecute.at(i).GetOriginalBT());
     }
 
     this->avgTAT = totalTurnaroundTime * 1.0f / processesToExecute.size();
