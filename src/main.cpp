@@ -17,13 +17,13 @@ int main()
         return -1;
     }
 
-    // RoundRobin roundRobin(processesToExecute, 3);
+    RoundRobin roundRobin(processesToExecute, 2);
 
-    // roundRobin.RunAlgo();
+    roundRobin.RunAlgo();
 
-    SJF sjf(processesToExecute);
+    // SJF sjf(processesToExecute);
 
-    sjf.RunAlgo();
+    // sjf.RunAlgo();
 
     // DRRHA drrha(processesToExecute, 2);
 
