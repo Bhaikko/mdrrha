@@ -1,3 +1,5 @@
+#include <cmath>
+
 #include "./../include/DRRHA.h"
 #include "./../include/MeanPriorityQueue.h"
 
@@ -27,7 +29,7 @@ void DRRHA::RunAlgo()
         {
             i--;
         }
-        quantum = (ready_q.GetMean() / 2) + ((ready_q.GetMean() / 2) / (ready_q.Top()->burstTime));
+        quantum = ceil((ready_q.GetMean() / 2) + ((ready_q.GetMean() / 2) / (ready_q.Top()->burstTime)));
         // std::cout << "Top " << ready_q.Top()->burstTime << " ";
         // std::cout << "Q" << quantum << " " << ready_q.GetMean() << " " << ready_q.Top()->burstTime;
         // Process *temp = ready_q.Top();
