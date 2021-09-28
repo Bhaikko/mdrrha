@@ -16,7 +16,7 @@ private:
     std::priority_queue<Process *, std::vector<Process *>, MinPriorityQueueCompare> queue;
 
     // minPQ queue;
-    float sum;
+    int sum;
 
 public:
     MeanPriorityQueue();
