@@ -6,14 +6,13 @@ class Process
 {
 
 private:
-int originalBT;
+    int originalBT;
 
 public:
     int arrivalTime;
-    float burstTime;    // Discuss about this
+    int burstTime;
     int p_id;
-    float completionTime;
-
+    int completionTime;
 
 public:
     Process(int p_id, int arrivalTime, int burstTime);
