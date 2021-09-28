@@ -31,7 +31,7 @@ void DRRHA::RunAlgo()
         }
         quantum = ceil((ready_q.GetMean() / 2) + ((ready_q.GetMean() / 2) / (ready_q.Top()->burstTime)));
         // std::cout << "Top " << ready_q.Top()->burstTime << " ";
-        // std::cout << "Q" << quantum << " " << ready_q.GetMean() << " " << ready_q.Top()->burstTime;
+        // std::cout << quantum << " " << ready_q.GetMean();
         // Process *temp = ready_q.Top();
         if (ready_q.Top()->burstTime <= quantum)
         {
@@ -48,6 +48,7 @@ void DRRHA::RunAlgo()
         {
             // ready_q.Execute(quantum);
             t += ready_q.Top()->burstTime; //**********************************
+            // std::cout << t;
             nCS++;
             ready_q.Top()->completionTime = t;
             // std::cout << "U" << ready_q.Top()->completionTime << " ";
@@ -68,17 +69,25 @@ void DRRHA::RunAlgo()
     }
     while (ready_q.GetQueueSize() > 0)
     {
-        quantum = (ready_q.GetMean() / 2) + ((ready_q.GetMean() / 2) / (ready_q.Top()->burstTime));
+        quantum = ceil((ready_q.GetMean() / 2) + ((ready_q.GetMean() / 2) / (ready_q.Top()->burstTime)));
         // std::cout << "Q" << quantum << " " << ready_q.GetMean() << " " << ready_q.Top()->burstTime;
         // Process *temp = ready_q.Top();
+
+        if (ready_q.Top()->burstTime <= quantum)
+        {
+            t += ready_q.Top()->burstTime;
+        }
+        else
+        {
+            t += quantum;
+        }
         ready_q.Execute(quantum);
         nCS++;
-        t += quantum;
         if (ready_q.Top()->burstTime > 0 && ready_q.Top()->burstTime <= quantum)
         {
             ready_q.Execute(quantum);
             nCS++;
-            t += quantum;
+            t += ready_q.Top()->burstTime;
             ready_q.Top()->completionTime = t;
             // std::cout << "U" << ready_q.Top()->completionTime << " ";
             ready_q.Pop();

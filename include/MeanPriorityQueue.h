@@ -24,7 +24,7 @@ public:
     void Push(Process &process);
     Process *Top();
     void Pop();
-    void Execute(float t);
+    void Execute(int t);
     float GetMean();
     int GetQueueSize();
 };

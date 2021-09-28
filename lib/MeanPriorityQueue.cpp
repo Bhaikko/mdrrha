@@ -29,7 +29,7 @@ void MeanPriorityQueue::Pop()
 
     queue.pop();
 }
-void MeanPriorityQueue::Execute(float t)
+void MeanPriorityQueue::Execute(int t)
 {
     if (queue.empty())
     {
