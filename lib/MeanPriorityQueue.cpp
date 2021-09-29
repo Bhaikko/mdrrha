@@ -24,7 +24,7 @@ void MeanPriorityQueue::Pop()
         return;
     }
 
-    sum -= queue.top()->burstTime;
+    // sum -= queue.top()->burstTime;
     // std::cout << sum << " ";
 
     queue.pop();

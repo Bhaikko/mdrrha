@@ -13,10 +13,10 @@ void DRRHA::RunAlgo()
 {
     Algorithm::RunAlgo();
 
-    // std::priority_queue<Process *, std::vector<Process *>, CompareProcess> ready_q;
     MeanPriorityQueue ready_q;
     int t = 0; // current time
     t = processesToExecute.at(0).arrivalTime;
+
     for (unsigned int i = 0; i < processesToExecute.size(); i++)
     {
         if (processesToExecute.at(i).arrivalTime <= t)
@@ -29,6 +29,7 @@ void DRRHA::RunAlgo()
         {
             i--;
         }
+        
         quantum = ceil((ready_q.GetMean() / 2) + ((ready_q.GetMean() / 2) / (ready_q.Top()->burstTime)));
         // std::cout << "Top " << ready_q.Top()->burstTime << " ";
         // std::cout << "Q" << quantum << " " << ready_q.GetMean() << " " << ready_q.Top()->burstTime;
@@ -95,41 +96,8 @@ void DRRHA::RunAlgo()
             std::cout << "here";
         }
     }
-    // for (unsigned int i = 0; i < processesToExecute.size(); i++)
-    // {
-    //     if (processesToExecute.at(i).arrivalTime <= t)
-    //     {
-    //         ready_q.push(&(processesToExecute.at(i)));
-    //     }
-    //     else
-    //     {
-    //         if (ready_q.empty())
-    //         {
-    //             t++;
-    //             i--;
-    //         }
-    //         else
-    //         {
-    //             t += ready_q.top()->burstTime;
-    //             ready_q.top()->completionTime = t;
-    //             ready_q.pop();
-    //             this->nCS++;
-    //             i--;
-    //         }
-    //     }
-    // }
 
-    // while (!ready_q.empty())
-    // {
-    //     t += ready_q.top()->burstTime;
-    //     ready_q.top()->completionTime = t;
-    //     ready_q.pop();
-    //     this->nCS++;
-    // }
-    for (unsigned int i = 0; i < processesToExecute.size(); i++)
-    {
-        std::cout << processesToExecute.at(i).completionTime << " ";
-    }
+    ListCompletitionTimesOfProcesses();
 
     std::cout << this->name << " Ended for " << processesToExecute.size() << " processes." << std::endl;
 
