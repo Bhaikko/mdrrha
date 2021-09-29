@@ -6,6 +6,7 @@
 #include "./../include/RoundRobin.h"
 #include "./../include/SJF.h"
 #include "./../test/test_DRRHA.h"
+#include "./../include/DRRHA.h"
 
 int main()
 {
@@ -29,8 +30,8 @@ int main()
 
     // drrha.RunAlgo();
 
-    DRRHA DRRHA(processesToExecute); // test_DRRHA
-    DRRHA.RunAlgo();
+    test_DRRHA test_DRRHA(processesToExecute); // test_DRRHA
+    test_DRRHA.RunAlgo();
 
     return 0;
 }
