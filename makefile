@@ -8,6 +8,8 @@ SRCS_CPP = \
 	./lib/SJF.cpp \
 	./lib/DRRHA.cpp \
 	./lib/MeanPriorityQueue.cpp \
+	./test/test_DRRHA.cpp \
+	./test/test_MeanPriorityQueue.cpp \
 	./src/main.cpp \
 
 run:

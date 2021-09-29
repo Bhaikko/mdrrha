@@ -1,6 +1,6 @@
 #include <queue>
 
-#include "./Process.h"
+#include "./../include/Process.h"
 
 struct MinPriorityQueueCompare
 {
@@ -10,21 +10,23 @@ struct MinPriorityQueueCompare
     }
 };
 
-class MeanPriorityQueue
+class TestMeanPriorityQueue
 {
 private:
     std::priority_queue<Process *, std::vector<Process *>, MinPriorityQueueCompare> queue;
-
+    float sum;
     // minPQ queue;
-    int sum;
+    
 
 public:
-    MeanPriorityQueue();
+    TestMeanPriorityQueue();
 
-    void Push(Process &process);
+    void Push(Process *);
     Process *Top();
     void Pop();
-    void Execute(int t);
     float GetMean();
     int GetQueueSize();
+    bool Empty();
+    void PopWithoutSum();
+    void Execute_extended(float t, int*, int*);
 };
