@@ -2,6 +2,7 @@
 
 #include <fstream>
 #include <vector>
+#include <algorithm>
 
 #include "./paths.h"
 #include "./../include/Process.h"
@@ -52,6 +53,13 @@
                 burstTime
             ));
         }
+
+        sort(
+            processesToExecute.begin(), 
+            processesToExecute.end(), 
+            [](Process first, Process second) -> bool {
+                return first.arrivalTime < second.arrivalTime;
+        });
 
         return processesToExecute;
     }

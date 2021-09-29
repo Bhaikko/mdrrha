@@ -23,7 +23,7 @@ void Algorithm::CalculateMetrics()
         totalTurnaroundTime += (this->processesToExecute.at(i).completionTime - this->processesToExecute.at(i).arrivalTime);
 
         totalWaitTime += ((this->processesToExecute.at(i).completionTime - this->processesToExecute.at(i).arrivalTime) -
-                          this->processesToExecute.at(i).burstTime);
+                          this->processesToExecute.at(i).GetOriginalBT());
     }
 
     this->avgTAT = totalTurnaroundTime * 1.0f / processesToExecute.size();
@@ -39,7 +39,7 @@ void Algorithm::ProcessResult(bool bShouldPrintResults, bool bShouldWriteResults
         std::cout << std::endl;
 
         std::cout << "Name: " << name << std::endl;
-        std::cout << "Test Cases: " << processesToExecute.size() << std::endl;
+        std::cout << "Processes Executed: " << processesToExecute.size() << std::endl;
         std::cout << "Average TAT: " << avgTAT << std::endl;
         std::cout << "Average WT: " << avgWT << std::endl;
         std::cout << "Context Switches: " << nCS << std::endl;
@@ -66,6 +66,18 @@ void Algorithm::ProcessResult(bool bShouldPrintResults, bool bShouldWriteResults
 
         WriteToCSV(resultToAppend);
     }
+}
+
+void Algorithm::ListCompletitionTimesOfProcesses()
+{
+    std::cout << std::endl;
+    
+    std::cout << "Printing Completition Times." << std::endl;
+    for (unsigned int i = 0; i < processesToExecute.size(); i++) {
+        std::cout << processesToExecute[i].p_id << ": " << processesToExecute[i].completionTime << std::endl;
+    }
+
+    std::cout << std::endl;
 }
 
 Algorithm::~Algorithm()

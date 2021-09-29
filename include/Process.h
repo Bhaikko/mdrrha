@@ -2,8 +2,11 @@
 
 #include <iostream>
 
-class Process 
+class Process
 {
+
+private:
+    int originalBT;
 
 public:
     int arrivalTime;
@@ -15,6 +18,9 @@ public:
     Process(int p_id, int arrivalTime, int burstTime);
 
     bool Execute(int executionTime);
-    
+
     ~Process();
+
+public:
+    int GetOriginalBT() { return originalBT; }
 };
