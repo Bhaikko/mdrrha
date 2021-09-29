@@ -11,7 +11,7 @@ void test_DRRHA::RunAlgo()
 {
     Algorithm::RunAlgo();
 
-    MeanPriorityQueue rq;
+    TestMeanPriorityQueue rq;
     int currentTime = processesToExecute[0].arrivalTime;
 
     // Process *p = &processesToExecute.at(0);
@@ -58,6 +58,8 @@ void test_DRRHA::RunAlgo()
         } 
         
     }
+
+    nCS--;
 
     std::cout << this->name << " Ended for " << processesToExecute.size() << " processes." << std::endl;
 

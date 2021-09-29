@@ -1,23 +1,23 @@
 #include "./test_MeanPriorityQueue.h"
 
-MeanPriorityQueue::MeanPriorityQueue()
+TestMeanPriorityQueue::TestMeanPriorityQueue()
 {
     sum = 0;
 }
 
-void MeanPriorityQueue::Push(Process *p)
+void TestMeanPriorityQueue::Push(Process *p)
 {
     sum += p->burstTime;
     // std::cout << sum << " ";
     queue.push(p);
 }
 
-Process *MeanPriorityQueue::Top()
+Process *TestMeanPriorityQueue::Top()
 {
     return queue.top();
 }
 
-void MeanPriorityQueue::Pop()
+void TestMeanPriorityQueue::Pop()
 {
     if (queue.empty())
     {
@@ -29,43 +29,21 @@ void MeanPriorityQueue::Pop()
 
     queue.pop();
 }
-void MeanPriorityQueue::Execute(float t)
-{
-    if (queue.empty())
-    {
-        return;
-    }
 
-    if (t > queue.top()->burstTime)
-    {
-        sum -= queue.top()->burstTime;
-        // std::cout << sum << " ";
-    }
-    else
-    {
-        sum -= t;
-        // std::cout << sum << " ";
-    }
-    queue.top()->burstTime -= t;
-    if (queue.top()->burstTime < 0)
-    {
-        queue.top()->burstTime = 0;
-    }
-}
 
-float MeanPriorityQueue::GetMean()
+float TestMeanPriorityQueue::GetMean()
 {
     return queue.size() == 0 ? 0.0f : sum / (queue.size() * 1.0f);
 }
 
-int MeanPriorityQueue::GetQueueSize() { return queue.size(); }
+int TestMeanPriorityQueue::GetQueueSize() { return queue.size(); }
 
-bool MeanPriorityQueue::Empty()
+bool TestMeanPriorityQueue::Empty()
 {
     return(queue.empty());
 }
 
-void MeanPriorityQueue::PopWithoutSum() 
+void TestMeanPriorityQueue::PopWithoutSum() 
 {
     if (queue.empty())
     {
@@ -77,7 +55,7 @@ void MeanPriorityQueue::PopWithoutSum()
     queue.pop();
 }
 
-void MeanPriorityQueue::Execute_extended(float t, int *ct, int *nCS)
+void TestMeanPriorityQueue::Execute_extended(float t, int *ct, int *nCS)
 {
     Process *p = queue.top();
 
@@ -94,7 +72,8 @@ void MeanPriorityQueue::Execute_extended(float t, int *ct, int *nCS)
         *ct += p->burstTime;
         p->completionTime = *ct;
         p->burstTime = 0;
-        this->Pop();
+        // this->Pop();
+        PopWithoutSum();
         *nCS += 1;
         // p->burstTime = 0;
         // std::cout << sum << " ";
@@ -108,14 +87,16 @@ void MeanPriorityQueue::Execute_extended(float t, int *ct, int *nCS)
             *ct += p->burstTime;
             p->burstTime = 0;
             p->completionTime = *ct;
-            this->Pop();
+            // this->Pop();
+            PopWithoutSum();
             
             // p->burstTime = 0;
             // p->completionTime = *ct;
         }
         else{
             // p->burstTime -= t;
-            Pop();
+            // Pop();
+            PopWithoutSum();
             Push(p);
         }
 

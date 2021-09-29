@@ -10,7 +10,7 @@ struct MinPriorityQueueCompare
     }
 };
 
-class MeanPriorityQueue
+class TestMeanPriorityQueue
 {
 private:
     std::priority_queue<Process *, std::vector<Process *>, MinPriorityQueueCompare> queue;
@@ -19,12 +19,11 @@ private:
     
 
 public:
-    MeanPriorityQueue();
+    TestMeanPriorityQueue();
 
     void Push(Process *);
     Process *Top();
     void Pop();
-    void Execute(float t);
     float GetMean();
     int GetQueueSize();
     bool Empty();
