@@ -4,3 +4,5 @@ application
 .vscode
 
 temp.cpp
+
+test/*

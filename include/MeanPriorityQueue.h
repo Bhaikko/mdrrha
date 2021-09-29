@@ -4,26 +4,27 @@
 
 struct MinPriorityQueueCompare
 {
-    bool operator()(const Process* lhs, const Process* rhs) const
+    bool operator()(const Process *lhs, const Process *rhs) const
     {
         return lhs->burstTime > rhs->burstTime;
     }
 };
 
-class MeanPriorityQueue {
+class MeanPriorityQueue
+{
 private:
-    typedef std::priority_queue<Process*, std::vector<Process* >, MinPriorityQueueCompare> minPQ;
-    
-    minPQ queue;
+    std::priority_queue<Process *, std::vector<Process *>, MinPriorityQueueCompare> queue;
+
+    // minPQ queue;
     int sum;
 
 public:
     MeanPriorityQueue();
-    
-    void Push(Process& process); 
-    Process* Top();
+
+    void Push(Process &process);
+    Process *Top();
     void Pop();
+    void Execute(int t);
     float GetMean();
     int GetQueueSize();
-
 };

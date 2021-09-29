@@ -1,10 +1,11 @@
-#include <iostream>
+// #include <iostream>
 
 #include "./filehandler.h"
 
 #include "./../include/MeanPriorityQueue.h"
 #include "./../include/RoundRobin.h"
 #include "./../include/SJF.h"
+#include "./../test/test_DRRHA.h"
 
 int main()
 {
@@ -16,13 +17,20 @@ int main()
         return -1;
     }
 
-    RoundRobin roundRobin(processesToExecute, 3);
+    // RoundRobin roundRobin(processesToExecute, 3);
 
-    roundRobin.RunAlgo();
+    // roundRobin.RunAlgo();
 
     // SJF sjf(processesToExecute);
 
     // sjf.RunAlgo();
+
+    // DRRHA drrha(processesToExecute, 2);
+
+    // drrha.RunAlgo();
+
+    DRRHA DRRHA(processesToExecute); // test_DRRHA
+    DRRHA.RunAlgo();
 
     return 0;
 }
