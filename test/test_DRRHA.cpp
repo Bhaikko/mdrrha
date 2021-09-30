@@ -14,22 +14,20 @@ void test_DRRHA::RunAlgo()
     TestMeanPriorityQueue rq;
     int currentTime = processesToExecute[0].arrivalTime;
 
-    // Process *p = &processesToExecute.at(0);
-    // rq.Push(p);
 
     unsigned int index = 0;
     while(index < processesToExecute.size())
-        {  
-            Process *newP = &processesToExecute.at(index);
-            
-            if(newP->arrivalTime <= currentTime) {
-                rq.Push(newP);
-            }
-            else
-                break;
-            
-            index++;
-        } 
+    {  
+        Process *newP = &processesToExecute.at(index);
+        
+        if(newP->arrivalTime <= currentTime) {
+            rq.Push(newP);
+        }
+        else
+            break;
+        
+        index++;
+    } 
 
     while(rq.GetQueueSize() > 0)
     {
@@ -40,7 +38,7 @@ void test_DRRHA::RunAlgo()
 
         quantum = ceil((m/2) + (m/(2*p->burstTime)));
     
-        rq.Execute_extended(quantum, &currentTime, &nCS);
+        rq.Execute(quantum, &currentTime, &nCS);
 
         nCS++;
 
@@ -63,9 +61,7 @@ void test_DRRHA::RunAlgo()
 
     std::cout << this->name << " Ended for " << processesToExecute.size() << " processes." << std::endl;
 
-    for (unsigned int i = 0; i < processesToExecute.size(); i++) {
-         std::cout << processesToExecute[i].completionTime << std::endl;
-    }
+    ListCompletitionTimesOfProcesses();
 
 
     // Read Function Definition before calling

@@ -14,9 +14,7 @@ class TestMeanPriorityQueue
 {
 private:
     std::priority_queue<Process *, std::vector<Process *>, MinPriorityQueueCompare> queue;
-    float sum;
-    // minPQ queue;
-    
+    float sum;    
 
 public:
     TestMeanPriorityQueue();
@@ -27,6 +25,5 @@ public:
     float GetMean();
     int GetQueueSize();
     bool Empty();
-    void PopWithoutSum();
-    void Execute_extended(float t, int*, int*);
+    void Execute(float t, int*, int*);
 };
