@@ -1,15 +1,18 @@
 #pragma once
 
+#include <cmath>
 #include <queue>
+
 #include "./Algorithm.h"
+
 
 class DRRHA : public Algorithm
 {
 private:
-    int quantum;
+    float quantum;
 
 public:
-    DRRHA(std::vector<Process> processesToExecute, int quantum);
+    DRRHA(std::vector<Process> processesToExecute);
 
     virtual void RunAlgo() override;
 

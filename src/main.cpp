@@ -5,7 +5,6 @@
 #include "./../include/MeanPriorityQueue.h"
 #include "./../include/RoundRobin.h"
 #include "./../include/SJF.h"
-#include "./../test/test_DRRHA.h"
 #include "./../include/DRRHA.h"
 
 int main()
@@ -26,12 +25,9 @@ int main()
 
     // sjf.RunAlgo();
 
-    // DRRHA drrha(processesToExecute, 2);
+    DRRHA drrha(processesToExecute);
 
-    // drrha.RunAlgo();
-
-    test_DRRHA test_DRRHA(processesToExecute); // test_DRRHA
-    test_DRRHA.RunAlgo();
+    drrha.RunAlgo();
 
     return 0;
 }

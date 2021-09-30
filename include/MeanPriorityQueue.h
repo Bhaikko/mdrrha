@@ -14,17 +14,18 @@ class MeanPriorityQueue
 {
 private:
     std::priority_queue<Process *, std::vector<Process *>, MinPriorityQueueCompare> queue;
-
-    // minPQ queue;
-    int sum;
+    float sum;    
 
 public:
     MeanPriorityQueue();
 
-    void Push(Process &process);
+    void Push(Process *);
     Process *Top();
     void Pop();
-    void Execute(int t);
     float GetMean();
     int GetQueueSize();
+    bool Empty();
+    void Execute(float t, int*, int*);
+
+    ~MeanPriorityQueue();
 };
