@@ -56,7 +56,7 @@ void MeanPriorityQueue::Execute(float t, int *ct, int *nCS)
         p->completionTime = *ct;
         p->burstTime = 0;
         this->Pop();
-        *nCS += 1;
+        // *nCS += 1;
         // p->burstTime = 0;
     }
     else
