@@ -19,12 +19,15 @@ void RoundRobin::RunAlgo()
 
     unsigned int index = 1;
 
+    // This is ending Before all processes execute
     while(!rq.empty())
     {
         Process *p = rq.front();
         rq.pop();
         
         nCS++;
+
+        std::cout << p->arrivalTime << std::endl;
 
         if(p->burstTime <= quantum)
         {
@@ -35,12 +38,19 @@ void RoundRobin::RunAlgo()
         else
         {
             p->burstTime -= quantum;
+
+            if (p->burstTime < 0) {
+                p->burstTime = 0;
+            }
+
             currentTime += quantum;
         }
 
         while(index < processesToExecute.size())
         {  
             Process *newP = &processesToExecute.at(index);
+
+            std::cout << newP->arrivalTime << std::endl;
             
             if(newP->arrivalTime <= currentTime)
                 rq.push(newP);
@@ -50,8 +60,9 @@ void RoundRobin::RunAlgo()
             index++;
         }
 
-        if(p->burstTime)
+        if(p->burstTime > 0) {
             rq.push(p);
+        }
         
     }
 
@@ -59,7 +70,7 @@ void RoundRobin::RunAlgo()
 
     std::cout << this->name << " Ended for " << processesToExecute.size() << " processes." << std::endl;
 
-    ListCompletitionTimesOfProcesses();
+    // ListCompletitionTimesOfProcesses();
 
     // Read Function Definition before calling
     // Prints Result on Console after Calculating avgTAT, etc

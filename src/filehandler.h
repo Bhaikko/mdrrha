@@ -12,7 +12,7 @@
     // Code to import data from csv file
     // The below code only works for specific database schema
     // Won't work as General CSV Parser
-    inline std::vector<Process> ReadProcessesFromFile()
+    inline std::vector<Process> ReadProcessesFromFile(int limit = 999999)
     {
         std::vector<Process> processesToExecute;
 
@@ -25,10 +25,16 @@
         std::string currentLine;
         int p_id = 0;
 
+        int processesFetched = 0;
+
         while (std::getline(dataset, currentLine)) {
             if (p_id == 0) {
                 p_id++;
                 continue;
+            }
+
+            if (processesFetched >= limit) {
+                break;
             }
 
             std::string currentProcessDetail;
@@ -52,6 +58,8 @@
                 arrivalTime,
                 burstTime
             ));
+
+            processesFetched++;
         }
 
         sort(

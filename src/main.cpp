@@ -9,7 +9,7 @@
 
 int main()
 {
-    std::vector<Process> processesToExecute = ReadProcessesFromFile();
+    std::vector<Process> processesToExecute = ReadProcessesFromFile(10);
 
     if (processesToExecute.size() == 0)
     {
@@ -17,7 +17,15 @@ int main()
         return -1;
     }
 
-    // RoundRobin roundRobin(processesToExecute, 3);
+    std::cout << processesToExecute.size() << std::endl;
+
+    for (unsigned int i = 0; i < processesToExecute.size(); i++) {
+        std::cout << processesToExecute[i].p_id << " " << processesToExecute[i].arrivalTime << " " << processesToExecute[i].burstTime << std::endl;
+    }
+
+    std::cout << std::endl;
+
+    // RoundRobin roundRobin(processesToExecute, 2);
 
     // roundRobin.RunAlgo();
 
@@ -25,9 +33,11 @@ int main()
 
     // sjf.RunAlgo();
 
-    DRRHA drrha(processesToExecute);
+    // DRRHA drrha(processesToExecute);
 
-    drrha.RunAlgo();
+    // drrha.RunAlgo();
 
     return 0;
 }
+
+// 10 50 100 150 200
