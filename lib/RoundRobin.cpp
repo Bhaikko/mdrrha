@@ -27,7 +27,8 @@ void RoundRobin::RunAlgo()
         
         nCS++;
 
-        std::cout << p->arrivalTime << std::endl;
+        // std::cout << p->arrivalTime << std::endl;
+        // std::cout << currentTime << std::endl;
 
         if(p->burstTime <= quantum)
         {
@@ -50,7 +51,7 @@ void RoundRobin::RunAlgo()
         {  
             Process *newP = &processesToExecute.at(index);
 
-            std::cout << newP->arrivalTime << std::endl;
+            // std::cout << newP->arrivalTime << std::endl;
             
             if(newP->arrivalTime <= currentTime)
                 rq.push(newP);
@@ -62,6 +63,13 @@ void RoundRobin::RunAlgo()
 
         if(p->burstTime > 0) {
             rq.push(p);
+        }
+
+        if(rq.empty() && index < processesToExecute.size()){
+            currentTime = processesToExecute.at(index).arrivalTime;
+            Process *newP = &processesToExecute.at(index);
+            rq.push(newP);
+            index++;
         }
         
     }

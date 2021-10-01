@@ -54,6 +54,13 @@ void DRRHA::RunAlgo()
             index++;
         } 
         
+        if(rq.Empty() && index < processesToExecute.size()){
+            currentTime = processesToExecute.at(index).arrivalTime;
+            Process *newP = &processesToExecute.at(index);
+            rq.Push(newP);
+            index++;
+        }
+
     }
 
     nCS--;
