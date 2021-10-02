@@ -13,7 +13,6 @@ void DRRHA::RunAlgo()
     MeanPriorityQueue rq;
     int currentTime = processesToExecute[0].arrivalTime;
 
-
     unsigned int index = 0;
     while(index < processesToExecute.size())
     {  
@@ -30,7 +29,6 @@ void DRRHA::RunAlgo()
 
     while(rq.GetQueueSize() > 0)
     {
-
         Process *p = rq.Top();
         float quantum;
         float m = rq.GetMean();
@@ -67,7 +65,7 @@ void DRRHA::RunAlgo()
 
     std::cout << this->name << " Ended for " << processesToExecute.size() << " processes." << std::endl;
 
-    ListCompletitionTimesOfProcesses();
+    // ListCompletitionTimesOfProcesses();
 
 
     // Read Function Definition before calling

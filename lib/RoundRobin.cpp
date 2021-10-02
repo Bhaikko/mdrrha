@@ -19,7 +19,6 @@ void RoundRobin::RunAlgo()
 
     unsigned int index = 1;
 
-    // This is ending Before all processes execute
     while(!rq.empty())
     {
         Process *p = rq.front();
@@ -50,8 +49,6 @@ void RoundRobin::RunAlgo()
         while(index < processesToExecute.size())
         {  
             Process *newP = &processesToExecute.at(index);
-
-            // std::cout << newP->arrivalTime << std::endl;
             
             if(newP->arrivalTime <= currentTime)
                 rq.push(newP);
