@@ -1,4 +1,8 @@
+#pragma once
+
 #include <queue>
+#include <vector>
+#include <algorithm>
 
 #include "./Process.h"
 
@@ -14,7 +18,12 @@ class MeanPriorityQueue
 {
 private:
     std::priority_queue<Process *, std::vector<Process *>, MinPriorityQueueCompare> queue;
+    
     float sum;    
+    std::vector<Process* > _queue;
+
+    int front, rear;
+    int processesInQueue;
 
 public:
     MeanPriorityQueue();
@@ -26,6 +35,7 @@ public:
     int GetQueueSize();
     bool Empty();
     void Execute(float t, int*, int*);
+    void SortQueue();
 
     ~MeanPriorityQueue();
 };

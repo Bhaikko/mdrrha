@@ -1,5 +1,5 @@
 #include "./../include/DRRHA.h"
-#include "./../include/MeanPriorityQueue.h"
+
 
 DRRHA::DRRHA(std::vector<Process> processesToExecute) : Algorithm(processesToExecute)
 {
@@ -11,57 +11,59 @@ void DRRHA::RunAlgo()
     Algorithm::RunAlgo();
 
     MeanPriorityQueue rq;
-    int currentTime = processesToExecute[0].arrivalTime;
 
-    unsigned int index = 0;
-    while(index < processesToExecute.size())
-    {  
-        Process *newP = &processesToExecute.at(index);
+    // MeanPriorityQueue rq;
+    // int currentTime = processesToExecute[0].arrivalTime;
+
+    // unsigned int index = 0;
+    // while(index < processesToExecute.size())
+    // {  
+    //     Process *newP = &processesToExecute.at(index);
         
-        if(newP->arrivalTime <= currentTime) {
-            rq.Push(newP);
-        }
-        else
-            break;
+    //     if(newP->arrivalTime <= currentTime) {
+    //         rq.Push(newP);
+    //     }
+    //     else
+    //         break;
         
-        index++;
-    } 
+    //     index++;
+    // } 
 
-    while(rq.GetQueueSize() > 0)
-    {
-        Process *p = rq.Top();
-        float quantum;
-        float m = rq.GetMean();
+    // while(rq.GetQueueSize() > 0)
+    // {
+    //     Process *p = rq.Top();
+    //     float quantum;
+    //     float m = rq.GetMean();
 
-        quantum = ceil((m/2) + (m/(2*p->burstTime)));
+    //     quantum = ceil((m/2) + (m/(2*p->burstTime)));
     
-        rq.Execute(quantum, &currentTime, &nCS);
+    //     rq.Execute(quantum, &currentTime, &nCS);
 
-        nCS++;
+    //     nCS++;
 
-        while(index < processesToExecute.size())
-        {  
-            Process *newP = &processesToExecute.at(index);
+    //     while(index < processesToExecute.size())
+    //     {  
+    //         Process *newP = &processesToExecute.at(index);
             
-            if(newP->arrivalTime <= currentTime) {
-                rq.Push(newP);
-            }
-            else
-                break;
+    //         if(newP->arrivalTime <= currentTime) {
+    //             rq.Push(newP);
+    //         }
+    //         else
+    //             break;
             
-            index++;
-        } 
+    //         index++;
+    //     } 
         
-        if(rq.Empty() && index < processesToExecute.size()){
-            currentTime = processesToExecute.at(index).arrivalTime;
-            Process *newP = &processesToExecute.at(index);
-            rq.Push(newP);
-            index++;
-        }
+    //     if(rq.Empty() && index < processesToExecute.size()){
+    //         currentTime = processesToExecute.at(index).arrivalTime;
+    //         Process *newP = &processesToExecute.at(index);
+    //         rq.Push(newP);
+    //         index++;
+    //     }
 
-    }
+    // }
 
-    nCS--;
+    // nCS--;
 
     std::cout << this->name << " Ended for " << processesToExecute.size() << " processes." << std::endl;
 

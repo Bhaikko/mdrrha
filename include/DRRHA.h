@@ -3,6 +3,7 @@
 #include <cmath>
 #include <queue>
 
+#include "./../include/MeanPriorityQueue.h"
 #include "./Algorithm.h"
 
 
