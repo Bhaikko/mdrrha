@@ -10,60 +10,92 @@ void DRRHA::RunAlgo()
 {
     Algorithm::RunAlgo();
 
-    MeanPriorityQueue rq;
+    MeanPriorityQueue readyQueue;
+    int currentTime = processesToExecute[0].arrivalTime;
 
-    // MeanPriorityQueue rq;
-    // int currentTime = processesToExecute[0].arrivalTime;
-
-    // unsigned int index = 0;
-    // while(index < processesToExecute.size())
-    // {  
-    //     Process *newP = &processesToExecute.at(index);
+    unsigned int index = 0;
+    while(index < processesToExecute.size())
+    {  
+        Process *newProcess = &processesToExecute.at(index);
         
-    //     if(newP->arrivalTime <= currentTime) {
-    //         rq.Push(newP);
-    //     }
-    //     else
-    //         break;
+        if(newProcess->arrivalTime <= currentTime) {
+            readyQueue.Push(newProcess);
+        }
+        else
+            break;
         
-    //     index++;
-    // } 
+        index++;
+    } 
 
-    // while(rq.GetQueueSize() > 0)
-    // {
-    //     Process *p = rq.Top();
-    //     float quantum;
-    //     float m = rq.GetMean();
+    readyQueue.SortQueue();
+    int timeQuantumToExecute;
 
-    //     quantum = ceil((m/2) + (m/(2*p->burstTime)));
-    
-    //     rq.Execute(quantum, &currentTime, &nCS);
+    while(readyQueue.GetQueueSize() > 0)
+    {
+        Process* currentProcess = readyQueue.Top();
+        float mean = readyQueue.GetMean();
 
-    //     nCS++;
+        timeQuantumToExecute = floor((mean / 2) + (mean / (2 * currentProcess->burstTime)));
 
-    //     while(index < processesToExecute.size())
-    //     {  
-    //         Process *newP = &processesToExecute.at(index);
+        // std::cout << timeQuantumToExecute << " " << currentProcess->burstTime << std::endl;
+        
+        if (timeQuantumToExecute >= currentProcess->burstTime)
+        {
+            readyQueue.Pop();
+            currentTime += currentProcess->burstTime;
+            currentProcess->completionTime = currentTime;
+            currentProcess->burstTime = 0;   
+        } else {
+            readyQueue.Pop();
             
-    //         if(newP->arrivalTime <= currentTime) {
-    //             rq.Push(newP);
-    //         }
-    //         else
-    //             break;
+            currentTime += timeQuantumToExecute;
+            currentProcess->burstTime -= timeQuantumToExecute;
+
+            // TODO: Figure out later when changing equations
+            /*
+            // if (currentProcess->burstTime <= timeQuantumToExecute){
+
+            //     std::cout << "IF: " << currentProcess->p_id << " " << currentProcess->burstTime << std::endl;
+                
+            //     currentTime += currentProcess->burstTime;
+            //     currentProcess->burstTime = 0;
+            //     currentProcess->completionTime = currentTime;                
+            // } else {
+            //     std::cout << "ELSE: " << currentProcess->p_id << " " << currentProcess->burstTime << std::endl;
+            //     readyQueue.Push(currentProcess);
+            // }
+            */
+
+            readyQueue.Push(currentProcess);
+        }
+
+        nCS++;
+
+        while(index < processesToExecute.size())
+        {  
+            Process* newProcess = &processesToExecute.at(index);
             
-    //         index++;
-    //     } 
+            if(newProcess->arrivalTime <= currentTime) {
+                readyQueue.Push(newProcess);
+                readyQueue.SortQueue();
+            }
+            else
+                break;
+            
+            index++;
+        } 
         
-    //     if(rq.Empty() && index < processesToExecute.size()){
-    //         currentTime = processesToExecute.at(index).arrivalTime;
-    //         Process *newP = &processesToExecute.at(index);
-    //         rq.Push(newP);
-    //         index++;
-    //     }
+        if(readyQueue.Empty() && index < processesToExecute.size()){
+            currentTime = processesToExecute.at(index).arrivalTime;
+            Process* newProcess = &processesToExecute.at(index);
+            readyQueue.Push(newProcess);
+            readyQueue.SortQueue();
+            index++;
+        }
 
-    // }
+    }
 
-    // nCS--;
+    nCS--;
 
     std::cout << this->name << " Ended for " << processesToExecute.size() << " processes." << std::endl;
 

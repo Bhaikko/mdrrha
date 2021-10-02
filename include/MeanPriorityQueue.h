@@ -32,9 +32,9 @@ public:
     Process *Top();
     void Pop();
     float GetMean();
+    float GetMedian();
     int GetQueueSize();
     bool Empty();
-    void Execute(float t, int*, int*);
     void SortQueue();
 
     ~MeanPriorityQueue();

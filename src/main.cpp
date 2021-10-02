@@ -9,7 +9,7 @@
 
 int main()
 {
-    std::vector<Process> processesToExecute = ReadProcessesFromFile(10);
+    std::vector<Process> processesToExecute = ReadProcessesFromFile(500);
 
     if (processesToExecute.size() == 0)
     {
@@ -17,11 +17,11 @@ int main()
         return -1;
     }
 
-    std::cout << processesToExecute.size() << std::endl;
+    // std::cout << processesToExecute.size() << std::endl;
 
-    for (unsigned int i = 0; i < processesToExecute.size(); i++) {
-        std::cout << processesToExecute[i].p_id << " " << processesToExecute[i].arrivalTime << " " << processesToExecute[i].burstTime << std::endl;
-    }
+    // for (unsigned int i = 0; i < processesToExecute.size(); i++) {
+    //     std::cout << processesToExecute[i].p_id << " " << processesToExecute[i].arrivalTime << " " << processesToExecute[i].burstTime << std::endl;
+    // }
 
     std::cout << std::endl;
 
