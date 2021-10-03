@@ -80,7 +80,7 @@ void RoundRobin::RunAlgo()
     // Read Function Definition before calling
     // Prints Result on Console after Calculating avgTAT, etc
     // Write results such as avgTAT, avgWT, nCS to external .csv file
-    ProcessResult(true, false);
+    ProcessResult(true, true);
 
 }
 

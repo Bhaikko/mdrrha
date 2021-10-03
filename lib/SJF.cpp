@@ -8,7 +8,7 @@ SJF::SJF(std::vector<Process> processesToExecute) : Algorithm(processesToExecute
 void SJF::RunAlgo()
 {
     Algorithm::RunAlgo();
-    
+
     std::priority_queue<Process *, std::vector<Process *>, CompareProcess> ready_q;
 
     int t = 0; // current time
@@ -53,10 +53,9 @@ void SJF::RunAlgo()
     // Read Function Definition before calling
     // Prints Result on Console after Calculating avgTAT, etc
     // Write results such as avgTAT, avgWT, nCS to external .csv file
-    ProcessResult(true, false);
+    ProcessResult(true, true);
 }
 
 SJF::~SJF()
 {
-
 }
