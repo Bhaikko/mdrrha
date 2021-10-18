@@ -31,11 +31,14 @@ public:
     void Push(Process *);
     Process *Top();
     void Pop();
-    float GetMean();
-    float GetMedian();
     int GetQueueSize();
     bool Empty();
     void SortQueue();
 
     ~MeanPriorityQueue();
+
+public:
+    float GetMean();
+    float GetMedian();
+    float GetNormalDistribution();
 };

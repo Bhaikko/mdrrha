@@ -43,8 +43,19 @@ void MeanPriorityQueue::Pop()
     processesInQueue--;
 }
 
+float MeanPriorityQueue::GetNormalDistribution()
+{
+    // Get Mean from GetMean()
+    // Calculate Standard Deviation
+    // Generate Random Integer based on Mean and Standard Deviation
+    return 0.0f;
+}
+
 float MeanPriorityQueue::GetMedian()
 {
+    // Copy from Front to Rear
+    // Sort
+    // Middle Element
     return _queue[(front + _queue.size()) / 2]->burstTime;
 }
 

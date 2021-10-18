@@ -36,7 +36,6 @@ void DRRHA::RunAlgo()
         float mean = readyQueue.GetMean();
 
         timeQuantumToExecute = floor((mean / 2) + (mean / (2 * currentProcess->burstTime)));
-
         // std::cout << timeQuantumToExecute << " " << currentProcess->burstTime << std::endl;
         
         if (timeQuantumToExecute >= currentProcess->burstTime)
@@ -52,22 +51,23 @@ void DRRHA::RunAlgo()
             currentProcess->burstTime -= timeQuantumToExecute;
 
             // TODO: Figure out later when changing equations
-            /*
-            // if (currentProcess->burstTime <= timeQuantumToExecute){
+            
+            if (currentProcess->burstTime < timeQuantumToExecute){
 
-            //     std::cout << "IF: " << currentProcess->p_id << " " << currentProcess->burstTime << std::endl;
+                // std::cout << "IF: " << currentProcess->p_id << " " << currentProcess->burstTime << std::endl;
                 
-            //     currentTime += currentProcess->burstTime;
-            //     currentProcess->burstTime = 0;
-            //     currentProcess->completionTime = currentTime;                
-            // } else {
-            //     std::cout << "ELSE: " << currentProcess->p_id << " " << currentProcess->burstTime << std::endl;
-            //     readyQueue.Push(currentProcess);
-            // }
-            */
+                currentTime += currentProcess->burstTime;
+                currentProcess->burstTime = 0;
+                currentProcess->completionTime = currentTime;                
+            } else {
+                // std::cout << "ELSE: " << currentProcess->p_id << " " << currentProcess->burstTime << std::endl;
+                readyQueue.Push(currentProcess);
+            }
+            
 
-            readyQueue.Push(currentProcess);
+            // readyQueue.Push(currentProcess);
         }
+        
 
         nCS++;
 
@@ -105,7 +105,7 @@ void DRRHA::RunAlgo()
     // Read Function Definition before calling
     // Prints Result on Console after Calculating avgTAT, etc
     // Write results such as avgTAT, avgWT, nCS to external .csv file
-    ProcessResult(true, true);
+    ProcessResult(true, false);
 
 }
 

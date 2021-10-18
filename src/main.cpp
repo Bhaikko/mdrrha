@@ -11,9 +11,10 @@ int main()
 {
     int test_case_no[] = {10, 50, 100, 150, 200};
 
-    for (int i = 0; test_case_no[i]; i++)
+    // for (int i = 0; test_case_no[i]; i++)
+    for (int i = 0; i < 1; i++)
     {
-        std::vector<Process> processesToExecute = ReadProcessesFromFile(test_case_no[i]);
+        std::vector<Process> processesToExecute = ReadProcessesFromFile(test_case_no[4]);
 
         if (processesToExecute.size() == 0)
         {
@@ -33,9 +34,9 @@ int main()
 
         sjf.RunAlgo();
 
-        RoundRobin roundRobin(processesToExecute, 10);
+        // RoundRobin roundRobin(processesToExecute, 10);
 
-        roundRobin.RunAlgo();
+        // roundRobin.RunAlgo();
 
         DRRHA drrha(processesToExecute);
 
