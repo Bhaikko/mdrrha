@@ -27,24 +27,28 @@
         std::string data = "";
 
         for (int i = 0; i < numOfProcesses; i++) {
-            std::string currentProcess = "";
-
-            currentProcess += std::to_string(rand() % BURST_TIME_UPPER_BOUND + BURST_TIME_LOWER_BOUND);
 
             if (bShouldGenerateArrivalTime) {
-                currentProcess += std::to_string(rand() % ARRIVAL_TIME_UPPER_BOUND + ARRIVAL_TIME_LOWER_BOUND);
+                data += std::to_string(rand() % ARRIVAL_TIME_UPPER_BOUND + ARRIVAL_TIME_LOWER_BOUND) + ", ";
+            } else {
+                data += std::to_string(0) + ", ";
             }
 
-            currentProcess += "\n";
+            data += std::to_string(rand() % BURST_TIME_UPPER_BOUND + BURST_TIME_LOWER_BOUND);
+
+            data += "\n";
         }        
         
         std::fstream outputFile;
         outputFile.open(RANDOM_DATASET_FILE_PATH, std::ios_base::out);
 
-        outputFile << "\"Arrival Time\", \"Burst Time\"";
+        if (!outputFile) {
+            std::cerr << "Cannot open " << RANDOM_DATASET_FILE_PATH << std::endl;
+            return -1;
+        }
+
+        outputFile << "\"Arrival Time\", \"Burst Time\"\n";
         outputFile << data;
-
-
 
         return 1;
     }
