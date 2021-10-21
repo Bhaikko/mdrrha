@@ -69,6 +69,8 @@
                 return first.arrivalTime < second.arrivalTime;
         });
 
+        dataset.close();
+
         return processesToExecute;
     }
 
@@ -104,5 +106,7 @@
         }
 
         outputFile << data;
+
+        outputFile.close();
     }
 #endif
