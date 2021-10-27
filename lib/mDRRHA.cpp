@@ -1,12 +1,12 @@
-#include "./../include/DRRHA.h"
+#include "./../include/mDRRHA.h"
 
 
-DRRHA::DRRHA(std::vector<Process> processesToExecute) : Algorithm(processesToExecute)
+mDRRHA::mDRRHA(std::vector<Process> processesToExecute) : Algorithm(processesToExecute)
 {
-    this->name = "DRRHA";
+    this->name = "mDRRHA";
 }
 
-void DRRHA::RunAlgo()
+void mDRRHA::RunAlgo()
 {
     Algorithm::RunAlgo();
 
@@ -33,7 +33,7 @@ void DRRHA::RunAlgo()
     while(readyQueue.GetQueueSize() > 0)
     {
         Process* currentProcess = readyQueue.Top();
-        float mean = readyQueue.GetMean();
+        float mean = readyQueue.GetMedian();
         // std::cout<<mean<<" ";
 
         timeQuantumToExecute = floor((mean / 2) + (mean / (2 * currentProcess->burstTime)));
@@ -110,6 +110,6 @@ void DRRHA::RunAlgo()
 
 }
 
-DRRHA::~DRRHA() { }
+mDRRHA::~mDRRHA() { }
 
 
