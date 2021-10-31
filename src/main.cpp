@@ -7,6 +7,8 @@
 #include "./../include/RoundRobin.h"
 #include "./../include/SJF.h"
 #include "./../include/DRRHA.h"
+#include "./../include/mDRRHA.h"
+
 
 int main()
 {
@@ -15,9 +17,9 @@ int main()
     int test_case_no[] = {10, 50, 100, 150, 200};
 
     // for (int i = 0; test_case_no[i]; i++)
-    for (int i = 0; i < 1; i++)
+    for (int i = 0; i < 5; i++)
     {
-        std::vector<Process> processesToExecute = ReadProcessesFromFile(test_case_no[4]);
+        std::vector<Process> processesToExecute = ReadProcessesFromFile(test_case_no[i]);
 
         if (processesToExecute.size() == 0)
         {
@@ -33,17 +35,18 @@ int main()
 
         std::cout << std::endl;
 
-        // SJF sjf(processesToExecute);
+        SJF sjf(processesToExecute);
 
-        // sjf.RunAlgo();
+        sjf.RunAlgo();
 
         RoundRobin roundRobin(processesToExecute, 10);
 
         roundRobin.RunAlgo();
 
-        // DRRHA drrha(processesToExecute);
+        DRRHA drrha(processesToExecute);
 
-        // drrha.RunAlgo();
+        drrha.RunAlgo();
+
     }
 
     return 0;

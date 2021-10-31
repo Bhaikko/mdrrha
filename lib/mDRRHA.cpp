@@ -1,12 +1,12 @@
-#include "./../include/DRRHA.h"
+#include "./../include/mDRRHA.h"
 
 
-DRRHA::DRRHA(std::vector<Process> processesToExecute) : Algorithm(processesToExecute)
+mDRRHA::mDRRHA(std::vector<Process> processesToExecute) : Algorithm(processesToExecute)
 {
-    this->name = "DRRHA";
+    this->name = "mDRRHA";
 }
 
-void DRRHA::RunAlgo()
+void mDRRHA::RunAlgo()
 {
     Algorithm::RunAlgo();
 
@@ -33,7 +33,7 @@ void DRRHA::RunAlgo()
     while(readyQueue.GetQueueSize() > 0)
     {
         Process* currentProcess = readyQueue.Top();
-        float mean = readyQueue.GetMean();
+        float mean = readyQueue.GetMedian();
         // std::cout<<mean<<" ";
 
         timeQuantumToExecute = floor((mean / 2) + (mean / (2 * currentProcess->burstTime)));
@@ -42,32 +42,29 @@ void DRRHA::RunAlgo()
         if (timeQuantumToExecute >= currentProcess->burstTime)
         {
             readyQueue.Pop();
-            currentProcess->Execute(0, currentTime);
-
             currentTime += currentProcess->burstTime;
             currentProcess->completionTime = currentTime;
             currentProcess->burstTime = 0;   
         } else {
             readyQueue.Pop();
             
-            currentProcess->Execute(0, currentTime);
-
             currentTime += timeQuantumToExecute;
             currentProcess->burstTime -= timeQuantumToExecute;
 
             // TODO: Figure out later when changing equations
-            /*
-            // if (currentProcess->burstTime <= timeQuantumToExecute){
-            //     std::cout << "IF: " << currentProcess->p_id << " " << currentProcess->burstTime << std::endl;
+            
+            // if (currentProcess->burstTime < timeQuantumToExecute){
+
+            //     // std::cout << "IF: " << currentProcess->p_id << " " << currentProcess->burstTime << std::endl;
                 
             //     currentTime += currentProcess->burstTime;
             //     currentProcess->burstTime = 0;
             //     currentProcess->completionTime = currentTime;                
             // } else {
-            //     std::cout << "ELSE: " << currentProcess->p_id << " " << currentProcess->burstTime << std::endl;
+            //     // std::cout << "ELSE: " << currentProcess->p_id << " " << currentProcess->burstTime << std::endl;
             //     readyQueue.Push(currentProcess);
             // }
-            */
+            
 
             readyQueue.Push(currentProcess);
         }
@@ -109,10 +106,10 @@ void DRRHA::RunAlgo()
     // Read Function Definition before calling
     // Prints Result on Console after Calculating avgTAT, etc
     // Write results such as avgTAT, avgWT, nCS to external .csv file
-    ProcessResult(true, true);
+    ProcessResult(true, false);
 
 }
 
-DRRHA::~DRRHA() { }
+mDRRHA::~mDRRHA() { }
 
 

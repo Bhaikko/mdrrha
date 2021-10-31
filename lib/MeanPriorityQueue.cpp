@@ -56,7 +56,11 @@ float MeanPriorityQueue::GetMedian()
     // Copy from Front to Rear
     // Sort
     // Middle Element
-    return _queue[(front + _queue.size()) / 2]->burstTime;
+    std::vector<Process* > queue_copy(_queue);  // Talk about this
+    std::sort(queue_copy.begin() + front, queue_copy.end(), [](Process* first, Process* second) -> bool {
+        return first->burstTime < second->burstTime;
+    });
+    return queue_copy[(front + queue_copy.size()) / 2]->burstTime;
 }
 
 float MeanPriorityQueue::GetMean()
