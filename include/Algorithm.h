@@ -16,6 +16,7 @@ private:
 protected:
     float avgTAT;       // Average Turn Around Time
     float avgWT;        // Average Waiting Time
+    float avgRT;        // Average Response Time
     int nCS;            // Context Switches
     std::string name;   // Required as Key when exporting to CSV file
 

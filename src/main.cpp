@@ -35,17 +35,17 @@ int main()
 
         std::cout << std::endl;
 
-        SJF sjf(processesToExecute);
+        // SJF sjf(processesToExecute);
 
-        sjf.RunAlgo();
+        // sjf.RunAlgo();
 
-        // RoundRobin roundRobin(processesToExecute, 10);
+        RoundRobin roundRobin(processesToExecute, 10);
 
-        // roundRobin.RunAlgo();
+        roundRobin.RunAlgo();
 
-        DRRHA drrha(processesToExecute);
+        // DRRHA drrha(processesToExecute);
 
-        drrha.RunAlgo();
+        // drrha.RunAlgo();
     }
 
     return 0;

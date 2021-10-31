@@ -27,6 +27,8 @@ void SJF::RunAlgo()
             }
             else
             {
+                ready_q.top()->Execute(0, t);
+
                 t += ready_q.top()->burstTime;
                 ready_q.top()->completionTime = t;
                 ready_q.pop();
@@ -38,6 +40,8 @@ void SJF::RunAlgo()
 
     while (!ready_q.empty())
     {
+        ready_q.top()->Execute(0, t);
+        
         t += ready_q.top()->burstTime;
         ready_q.top()->completionTime = t;
         ready_q.pop();

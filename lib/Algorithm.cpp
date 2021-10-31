@@ -4,6 +4,7 @@ Algorithm::Algorithm(std::vector<Process> processesToExecute)
 {
     this->avgTAT = 0.0f;
     this->avgWT = 0.0f;
+    this->avgRT = 0.0f;
     this->nCS = 0;
     this->processesToExecute = processesToExecute;
 }
@@ -16,7 +17,8 @@ void Algorithm::RunAlgo()
 void Algorithm::CalculateMetrics()
 {
     int totalTurnaroundTime = 0,
-        totalWaitTime = 0;
+        totalWaitTime = 0,
+        totalResponseTime = 0;
 
     for (unsigned int i = 0; i < this->processesToExecute.size(); i++)
     {
@@ -24,10 +26,13 @@ void Algorithm::CalculateMetrics()
 
         totalWaitTime += ((this->processesToExecute.at(i).completionTime - this->processesToExecute.at(i).arrivalTime) -
                           this->processesToExecute.at(i).GetOriginalBT());
+
+        totalResponseTime += ((this->processesToExecute.at(i)).responseTime - this->processesToExecute.at(i).arrivalTime);
     }
 
     this->avgTAT = totalTurnaroundTime * 1.0f / processesToExecute.size();
     this->avgWT = totalWaitTime * 1.0f / processesToExecute.size();
+    this->avgRT = totalResponseTime * 1.0f / processesToExecute.size();
 }
 
 void Algorithm::ProcessResult(bool bShouldPrintResults, bool bShouldWriteResults = false)
@@ -42,6 +47,7 @@ void Algorithm::ProcessResult(bool bShouldPrintResults, bool bShouldWriteResults
         std::cout << "Processes Executed: " << processesToExecute.size() << std::endl;
         std::cout << "Average TAT: " << avgTAT << std::endl;
         std::cout << "Average WT: " << avgWT << std::endl;
+        std::cout << "Average RT: " << avgRT << std::endl;
         std::cout << "Context Switches: " << nCS << std::endl;
 
         std::cout << std::endl;

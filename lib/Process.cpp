@@ -7,11 +7,16 @@ Process::Process(int p_id, int arrivalTime, int burstTime)
     this->burstTime = burstTime;
     this->originalBT = burstTime;
     this->completionTime = (2 ^ 32) - 1;
+    this->responseTime = -1;
 }
 
-bool Process::Execute(int executionTime)
+bool Process::Execute(int executionTime, int currentTime)
 {
     burstTime -= executionTime;
+
+    if (this->responseTime == -1) {
+        this->responseTime = currentTime;
+    }
 
     return burstTime > 0 ? false : true;
 }

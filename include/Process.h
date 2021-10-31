@@ -13,11 +13,12 @@ public:
     int burstTime;
     int p_id;
     int completionTime;
+    int responseTime;
 
 public:
     Process(int p_id, int arrivalTime, int burstTime);
 
-    bool Execute(int executionTime);
+    bool Execute(int executionTime, int currentTime);
 
     ~Process();
 

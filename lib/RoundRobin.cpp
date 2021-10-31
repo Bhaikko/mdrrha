@@ -31,12 +31,16 @@ void RoundRobin::RunAlgo()
 
         if(p->burstTime <= quantum)
         {
+            p->Execute(0, currentTime);
+
             currentTime += p->burstTime;
             p->burstTime = 0;
             p->completionTime = currentTime;
         }
         else
         {
+            p->Execute(0, currentTime);
+            
             p->burstTime -= quantum;
 
             if (p->burstTime < 0) {
