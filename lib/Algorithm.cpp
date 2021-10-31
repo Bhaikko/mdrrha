@@ -68,6 +68,7 @@ void Algorithm::ProcessResult(bool bShouldPrintResults, bool bShouldWriteResults
             std::to_string(this->processesToExecute.size()) + "," +
             std::to_string(this->avgTAT) + "," +
             std::to_string(this->avgWT) + "," +
+            std::to_string(this->avgRT) + "," +
             std::to_string(this->nCS);
 
         WriteToCSV(resultToAppend);

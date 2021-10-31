@@ -102,7 +102,7 @@
         }
 
         if (isFileEmpty(OUTPUT_FILE_PATH)) {
-            outputFile << "name, #cases, avgTAT, avgWT, nCS";
+            outputFile << "name, #cases, avgTAT, avgWT, avgRT, nCS";
         }
 
         outputFile << data;
