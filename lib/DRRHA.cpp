@@ -51,21 +51,20 @@ void DRRHA::RunAlgo()
             currentProcess->burstTime -= timeQuantumToExecute;
 
             // TODO: Figure out later when changing equations
-            
-            if (currentProcess->burstTime < timeQuantumToExecute){
-
-                // std::cout << "IF: " << currentProcess->p_id << " " << currentProcess->burstTime << std::endl;
+            /*
+            // if (currentProcess->burstTime <= timeQuantumToExecute){
+            //     std::cout << "IF: " << currentProcess->p_id << " " << currentProcess->burstTime << std::endl;
                 
-                currentTime += currentProcess->burstTime;
-                currentProcess->burstTime = 0;
-                currentProcess->completionTime = currentTime;                
-            } else {
-                // std::cout << "ELSE: " << currentProcess->p_id << " " << currentProcess->burstTime << std::endl;
-                readyQueue.Push(currentProcess);
-            }
-            
+            //     currentTime += currentProcess->burstTime;
+            //     currentProcess->burstTime = 0;
+            //     currentProcess->completionTime = currentTime;                
+            // } else {
+            //     std::cout << "ELSE: " << currentProcess->p_id << " " << currentProcess->burstTime << std::endl;
+            //     readyQueue.Push(currentProcess);
+            // }
+            */
 
-            // readyQueue.Push(currentProcess);
+            readyQueue.Push(currentProcess);
         }
         
 
