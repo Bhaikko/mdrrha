@@ -1,4 +1,5 @@
 #include "./../include/MeanPriorityQueue.h"
+#include<cmath>
 
 MeanPriorityQueue::MeanPriorityQueue()
 {
@@ -45,10 +46,14 @@ void MeanPriorityQueue::Pop()
 
 float MeanPriorityQueue::GetNormalDistribution()
 {
-    // Get Mean from GetMean()
-    // Calculate Standard Deviation
+    int mean = GetMean(); // Get Mean from GetMean()
+    int sqrSum = 0;
+    for (unsigned int i = 0; i < processesInQueue; i++){
+        sqrSum += (_queue[i]->burstTime - mean)*(_queue[i]->burstTime - mean);
+    }
+    unsigned int standardDeviation = sqrt(sqrSum/processesInQueue); // Calculate Standard Deviation
     // Generate Random Integer based on Mean and Standard Deviation
-    return 0.0f;
+    return mean-standardDeviation + rand()%(mean+standardDeviation);
 }
 
 float MeanPriorityQueue::GetMedian()
