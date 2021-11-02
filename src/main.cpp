@@ -14,10 +14,10 @@ int main()
 {
     // GenerateRandomDataset(10, true);
 
-    int test_case_no[] = {10, 50, 100, 150, 200};
+    int test_case_no[] = {10, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500};
 
     // for (int i = 0; test_case_no[i]; i++)
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 11; i++)
     {
         std::vector<Process> processesToExecute = ReadProcessesFromFile(test_case_no[i]);
 
