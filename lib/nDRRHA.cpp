@@ -33,10 +33,9 @@ void nDRRHA::RunAlgo()
     while(readyQueue.GetQueueSize() > 0)
     {
         Process* currentProcess = readyQueue.Top();
-        float mean = readyQueue.GetNormalDistribution();
         // std::cout<<mean<<" ";
 
-        timeQuantumToExecute = floor((mean / 2) + (mean / (2 * currentProcess->burstTime)));
+        timeQuantumToExecute = readyQueue.GetNormalDistribution();
         // std::cout << timeQuantumToExecute << " " << currentProcess->burstTime << std::endl;
         
         if (timeQuantumToExecute >= currentProcess->burstTime)
