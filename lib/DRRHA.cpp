@@ -139,15 +139,25 @@ std::vector<int> DRRHA::FillTimeQuantums()
 
     float mean = GetMean();
 
-    for (unsigned int i = 0; i < timequantums.size(); i++) {
-        timequantums[i] = floor(
+    // for (unsigned int i = 0; i < readyQueue.size(); i++) {
+    //     std::cout << readyQueue[i]->p_id << " : " << readyQueue[i]->burstTime << ", "; 
+    // }
+
+    // std::cout << ": " << mean << std::endl;
+
+
+    for (unsigned int i = 0; i < readyQueue.size(); i++) {
+        int quantum = floor(
             (mean / 2.0f) + ((mean / 2.0f) / readyQueue[i]->burstTime)
         );
 
-        std::cout << timequantums[i] << " ";
+        tqs[readyQueue[i]->p_id] = quantum;
+
+        // std::cout << tqs[readyQueue[i]->p_id] << " ";
     }
 
-    std::cout << std::endl;
+    // std::cout << std::endl;
+    // std::cout << std::endl;
 
     return timequantums;
 }
@@ -175,6 +185,8 @@ void DRRHA::RunAlgo()
         
         if(newProcess->arrivalTime <= currentTime) {
             readyQueue.push_back(newProcess);
+
+            // tqs[newProcess->p_id] = 0;
         }
         else
             break;
@@ -182,7 +194,7 @@ void DRRHA::RunAlgo()
         index++;
     } 
 
-    while (index < processesToExecute.size()) {
+    while (index < processesToExecute.size() || readyQueue.size() > 0) {
         // FillReadyQueueFromPending();
         SortReadyQueue();
 
@@ -190,18 +202,21 @@ void DRRHA::RunAlgo()
 
         for (unsigned int i = 0; i < readyQueue.size(); i++) {
             Process* currentProcess = readyQueue[i];
-
-            if (timequantums[i] >= currentProcess->burstTime) {
+            
+            if (tqs[currentProcess->p_id] >= currentProcess->burstTime) {
                 // currentProcess->Execute(0, currentTime);
+
                 currentTime += currentProcess->burstTime;
                 currentProcess->completionTime = currentTime;
-                currentProcess->burstTime = 0;   
+                currentProcess->burstTime = 0; 
+
             } else {
-                currentTime += timequantums[i];
-                currentProcess->completionTime -= currentTime;
+                currentTime += tqs[currentProcess->p_id];
+                currentProcess->burstTime -= tqs[currentProcess->p_id];
+
             }
 
-            if (currentProcess->burstTime < timequantums[i]) {
+            if (currentProcess->burstTime < tqs[currentProcess->p_id]) {
                 currentTime += currentProcess->burstTime;
                 currentProcess->completionTime = currentTime;
                 currentProcess->burstTime = 0;
@@ -211,8 +226,8 @@ void DRRHA::RunAlgo()
                 timequantums = FillTimeQuantums();
 
             } else {
-                readyQueue.erase(readyQueue.begin() + i);
                 readyQueue.push_back(currentProcess);
+                readyQueue.erase(readyQueue.begin() + i);
             }
 
             while (index < processesToExecute.size()) {  
@@ -233,7 +248,6 @@ void DRRHA::RunAlgo()
             nCS++;
         }
 
-        // if (readyQueue.Empty() && index < processesToExecute.size()) {
         if (index < processesToExecute.size()) {
             currentTime = processesToExecute.at(index).arrivalTime;
             Process* newProcess = &processesToExecute.at(index);
