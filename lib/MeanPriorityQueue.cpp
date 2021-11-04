@@ -48,7 +48,7 @@ float MeanPriorityQueue::GetNormalDistribution()
 {
     int mean = GetMean(); // Get Mean from GetMean()
     int sqrSum = 0;
-    for (unsigned int i = 0; i < processesInQueue; i++){
+    for (int i = 0; i < processesInQueue; i++){
         sqrSum += (_queue[i]->burstTime - mean)*(_queue[i]->burstTime - mean);
     }
     unsigned int standardDeviation = sqrt(sqrSum/processesInQueue); // Calculate Standard Deviation
