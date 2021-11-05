@@ -82,6 +82,7 @@ void Algorithm::ListCompletitionTimesOfProcesses()
     std::cout << "Printing Completition Times." << std::endl;
     for (unsigned int i = 0; i < processesToExecute.size(); i++) {
         std::cout << 
+            "P_ID: " <<
             processesToExecute[i].p_id << ": " << 
             processesToExecute[i].burstTime << ": " <<
             processesToExecute[i].completionTime << ": "  

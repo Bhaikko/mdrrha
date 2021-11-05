@@ -16,6 +16,7 @@ private:
 private:
     std::vector<Process*> readyQueue;
     std::vector<Process*> processesToPushAfterRound;
+    std::vector<int> proccessToErase;
 
     std::unordered_map<int, int> tqs;
 

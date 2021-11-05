@@ -143,7 +143,7 @@ std::vector<int> DRRHA::FillTimeQuantums()
     //     std::cout << readyQueue[i]->p_id << " : " << readyQueue[i]->burstTime << ", "; 
     // }
 
-    // std::cout << ": " << mean << std::endl;
+    // std::cout << " Mean: " << mean / 2.0f << std::endl;
 
 
     for (unsigned int i = 0; i < readyQueue.size(); i++) {
@@ -195,72 +195,75 @@ void DRRHA::RunAlgo()
     } 
 
     while (index < processesToExecute.size() || readyQueue.size() > 0) {
-        // FillReadyQueueFromPending();
+        FillReadyQueueFromPending();
         SortReadyQueue();
 
-        std::vector<int> timequantums = FillTimeQuantums();
+        // std::vector<int> timequantums = FillTimeQuantums();
+        FillTimeQuantums();
 
         for (unsigned int i = 0; i < readyQueue.size(); i++) {
-            Process* currentProcess = readyQueue[i];
-            
-            if (tqs[currentProcess->p_id] >= currentProcess->burstTime) {
-                // currentProcess->Execute(0, currentTime);
+            nCS++;
 
+            Process* currentProcess = readyQueue[i];
+            currentProcess->Execute(0, currentTime);
+
+            // First Execution
+            if (tqs[currentProcess->p_id] >= currentProcess->burstTime) {
                 currentTime += currentProcess->burstTime;
                 currentProcess->completionTime = currentTime;
-                currentProcess->burstTime = 0; 
+                currentProcess->burstTime = 0;
 
+                // proccessToErase.push_back(i);
             } else {
                 currentTime += tqs[currentProcess->p_id];
                 currentProcess->burstTime -= tqs[currentProcess->p_id];
-
             }
 
             if (currentProcess->burstTime < tqs[currentProcess->p_id]) {
                 currentTime += currentProcess->burstTime;
                 currentProcess->completionTime = currentTime;
                 currentProcess->burstTime = 0;
-
-                readyQueue.erase(readyQueue.begin() + i);
-
-                timequantums = FillTimeQuantums();
-
-            } else {
-                readyQueue.push_back(currentProcess);
-                readyQueue.erase(readyQueue.begin() + i);
             }
 
-            while (index < processesToExecute.size()) {  
-                Process* newProcess = &processesToExecute.at(index);
-                
-                if(newProcess->arrivalTime <= currentTime) {
-                    readyQueue.push_back(newProcess);
-                    SortReadyQueue();
-
-                    timequantums = FillTimeQuantums();
-                }
-                else
-                    break;
-                
-                index++;
-            } 
-
-            nCS++;
         }
 
-        if (index < processesToExecute.size()) {
-            currentTime = processesToExecute.at(index).arrivalTime;
+        // readyQueue.clear();
+        std::vector<Process*> transferQueue;
+
+        for (unsigned int i = 0; i < readyQueue.size(); i++) {
+            Process* currentProcess = readyQueue[i];
+
+            if (currentProcess->burstTime != 0) {
+                transferQueue.push_back(readyQueue[i]);
+            }
+        }
+
+        readyQueue = transferQueue;
+
+        bool bNewProcessArrived = false;
+
+        while (index < processesToExecute.size()) {  
             Process* newProcess = &processesToExecute.at(index);
-            readyQueue.push_back(newProcess);
-            SortReadyQueue();
-
-            timequantums = FillTimeQuantums();
+            
+            if(newProcess->arrivalTime <= currentTime) {
+                readyQueue.push_back(newProcess);
+                bNewProcessArrived = true;
+            }
+            else
+                break;
+            
             index++;
+        } 
+
+        if (!bNewProcessArrived) {
+            if (index < processesToExecute.size()) {
+                currentTime = processesToExecute.at(index).arrivalTime;
+                Process* newProcess = &processesToExecute.at(index);
+                readyQueue.push_back(newProcess);
+                index++;
+            }
         }
-
     }
-
-    nCS--;
 
     std::cout << this->name << " Ended for " << processesToExecute.size() << " processes." << std::endl;
 
