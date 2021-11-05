@@ -23,7 +23,7 @@ private:
 private:
     void SortReadyQueue();
     float GetMean();
-    std::vector<int> FillTimeQuantums();
+    void FillTimeQuantums();
     void FillReadyQueueFromPending();
 
 public:
