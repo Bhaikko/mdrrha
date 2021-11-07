@@ -137,13 +137,13 @@ void DRRHA::RunAlgo()
 
     std::cout << this->name << " Ended for " << processesToExecute.size() << " processes." << std::endl;
 
-    ListCompletitionTimesOfProcesses();
+    // ListCompletitionTimesOfProcesses();
 
 
     // Read Function Definition before calling
     // Prints Result on Console after Calculating avgTAT, etc
     // Write results such as avgTAT, avgWT, nCS to external .csv file
-    ProcessResult(true, false);
+    ProcessResult(true, true);
 
 }
 

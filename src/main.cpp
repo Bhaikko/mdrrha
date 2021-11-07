@@ -15,8 +15,8 @@ int main()
 {
     // GenerateRandomDataset(10, true);
 
-    // int test_case_no[] = {10, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500};
-    int test_case_no[] = {6};
+    int test_case_no[] = {10, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500};
+    // int test_case_no[] = {6};
     int numTestCases = sizeof(test_case_no) / sizeof(int);
 
     // for (int i = 0; test_case_no[i]; i++)
@@ -38,13 +38,13 @@ int main()
 
         std::cout << std::endl;
 
-        // SJF sjf(processesToExecute);
+        SJF sjf(processesToExecute);
 
-        // sjf.RunAlgo();
+        sjf.RunAlgo();
 
-        // RoundRobin roundRobin(processesToExecute, 10);
+        RoundRobin roundRobin(processesToExecute, 10);
 
-        // roundRobin.RunAlgo();
+        roundRobin.RunAlgo();
 
         DRRHA drrha(processesToExecute);
         drrha.RunAlgo();
