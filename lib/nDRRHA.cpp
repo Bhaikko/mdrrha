@@ -1,16 +1,85 @@
 #include "./../include/nDRRHA.h"
 
 
-nDRRHA::nDRRHA(std::vector<Process> processesToExecute) : Algorithm(processesToExecute)
+NDRRHA::NDRRHA(std::vector<Process> processesToExecute) : Algorithm(processesToExecute)
 {
-    this->name = "nDRRHA";
+    this->name = "NDRRHA";
+
+    std::srand(time(nullptr));
 }
 
-void nDRRHA::RunAlgo()
+void NDRRHA::SortReadyQueue()
+{
+    std::sort(readyQueue.begin(), readyQueue.end(), [](Process* first, Process* second) -> bool {
+        return first->burstTime < second->burstTime;
+    });
+}
+
+float NDRRHA::GetMean()
+{
+    float mean = 0.0f;
+    for (unsigned int i = 0; i < readyQueue.size(); i++) {
+        mean += readyQueue[i]->burstTime;
+    }
+
+    return mean / (readyQueue.size() * 1.0f);
+}
+
+void NDRRHA::CalculateMeanAndSD()
+{
+    mean = GetMean(); 
+    int sqrSum = 0;
+    
+    for (unsigned int i = 0; i < readyQueue.size(); i++) {
+        sqrSum += (readyQueue[i]->burstTime - mean) * (readyQueue[i]->burstTime - mean);
+    }
+
+    standardDeviation = sqrt(sqrSum / readyQueue.size()); // Calculate Standard Deviation
+
+    std::cout << mean << " " << standardDeviation << std::endl;
+
+}
+
+float NDRRHA::GetNormalDistribution()
+{   
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    
+    std::normal_distribution<float> distribution(mean, standardDeviation);
+
+    return distribution(gen);
+    // return distribution(generator);
+    // return (rand() % readyQueue.size()) + 1;
+
+    // return mean - standardDeviation + rand() % (mean + standardDeviation);
+}
+
+void NDRRHA::FillTimeQuantums()
+{
+    CalculateMeanAndSD();
+
+    for (unsigned int i = 0; i < readyQueue.size(); i++) {
+        // std::cout << GetNormalDistribution() << ", ";
+
+        tqs[readyQueue[i]->p_id] = floor(GetNormalDistribution());
+    }
+}
+
+void NDRRHA::FillReadyQueueFromPending()
+{
+    for (unsigned int i = 0; i < processesToPushAfterRound.size(); i++) {
+        readyQueue.push_back(processesToPushAfterRound[i]);
+    }
+
+    processesToPushAfterRound.clear();
+
+}
+
+void NDRRHA::RunAlgo()
 {
     Algorithm::RunAlgo();
 
-    MeanPriorityQueue readyQueue;
     int currentTime = processesToExecute[0].arrivalTime;
 
     unsigned int index = 0;
@@ -19,7 +88,7 @@ void nDRRHA::RunAlgo()
         Process *newProcess = &processesToExecute.at(index);
         
         if(newProcess->arrivalTime <= currentTime) {
-            readyQueue.Push(newProcess);
+            readyQueue.push_back(newProcess);
         }
         else
             break;
@@ -27,75 +96,73 @@ void nDRRHA::RunAlgo()
         index++;
     } 
 
-    readyQueue.SortQueue();
-    int timeQuantumToExecute;
+    while (index < processesToExecute.size() || readyQueue.size() > 0) {
+        FillReadyQueueFromPending();
+        SortReadyQueue();
 
-    while(readyQueue.GetQueueSize() > 0)
-    {
-        Process* currentProcess = readyQueue.Top();
-        // std::cout<<mean<<" ";
+        FillTimeQuantums();
 
-        timeQuantumToExecute = readyQueue.GetNormalDistribution();
-        // std::cout << timeQuantumToExecute << " " << currentProcess->burstTime << std::endl;
-        
-        if (timeQuantumToExecute >= currentProcess->burstTime)
-        {
-            readyQueue.Pop();
-            currentTime += currentProcess->burstTime;
-            currentProcess->completionTime = currentTime;
-            currentProcess->burstTime = 0;   
-        } else {
-            readyQueue.Pop();
-            
-            currentTime += timeQuantumToExecute;
-            currentProcess->burstTime -= timeQuantumToExecute;
+        for (unsigned int i = 0; i < readyQueue.size(); i++) {
+            nCS++;
 
-            // TODO: Figure out later when changing equations
-            
-            // if (currentProcess->burstTime < timeQuantumToExecute){
+            Process* currentProcess = readyQueue[i];
+            currentProcess->Execute(0, currentTime);
 
-            //     // std::cout << "IF: " << currentProcess->p_id << " " << currentProcess->burstTime << std::endl;
-                
-            //     currentTime += currentProcess->burstTime;
-            //     currentProcess->burstTime = 0;
-            //     currentProcess->completionTime = currentTime;                
-            // } else {
-            //     // std::cout << "ELSE: " << currentProcess->p_id << " " << currentProcess->burstTime << std::endl;
-            //     readyQueue.Push(currentProcess);
-            // }
-            
+            // First Execution
+            if (tqs[currentProcess->p_id] >= currentProcess->burstTime) {
+                currentTime += currentProcess->burstTime;
+                currentProcess->completionTime = currentTime;
+                currentProcess->burstTime = 0;
 
-            readyQueue.Push(currentProcess);
+            } else {
+                currentTime += tqs[currentProcess->p_id];
+                currentProcess->burstTime -= tqs[currentProcess->p_id];
+            }
+
+            if (currentProcess->burstTime < tqs[currentProcess->p_id]) {
+                currentTime += currentProcess->burstTime;
+                currentProcess->completionTime = currentTime;
+                currentProcess->burstTime = 0;
+            }
+
         }
-        
 
-        nCS++;
+        std::vector<Process*> transferQueue;
 
-        while(index < processesToExecute.size())
-        {  
+        for (unsigned int i = 0; i < readyQueue.size(); i++) {
+            Process* currentProcess = readyQueue[i];
+
+            if (currentProcess->burstTime != 0) {
+                transferQueue.push_back(readyQueue[i]);
+            }
+        }
+
+        readyQueue = transferQueue;
+
+        bool bNewProcessArrived = false;
+
+        while (index < processesToExecute.size()) {  
             Process* newProcess = &processesToExecute.at(index);
             
             if(newProcess->arrivalTime <= currentTime) {
-                readyQueue.Push(newProcess);
-                readyQueue.SortQueue();
+                readyQueue.push_back(newProcess);
+                bNewProcessArrived = true;
             }
             else
                 break;
             
             index++;
         } 
-        
-        if(readyQueue.Empty() && index < processesToExecute.size()){
-            currentTime = processesToExecute.at(index).arrivalTime;
-            Process* newProcess = &processesToExecute.at(index);
-            readyQueue.Push(newProcess);
-            readyQueue.SortQueue();
-            index++;
+
+        if (!bNewProcessArrived) {
+            if (index < processesToExecute.size()) {
+                currentTime = processesToExecute.at(index).arrivalTime;
+                Process* newProcess = &processesToExecute.at(index);
+                readyQueue.push_back(newProcess);
+                index++;
+            }
         }
-
     }
-
-    nCS--;
 
     std::cout << this->name << " Ended for " << processesToExecute.size() << " processes." << std::endl;
 
@@ -105,10 +172,10 @@ void nDRRHA::RunAlgo()
     // Read Function Definition before calling
     // Prints Result on Console after Calculating avgTAT, etc
     // Write results such as avgTAT, avgWT, nCS to external .csv file
-    ProcessResult(true, false);
+    ProcessResult(true, true);
 
 }
 
-nDRRHA::~nDRRHA() { }
+NDRRHA::~NDRRHA() { }
 
 

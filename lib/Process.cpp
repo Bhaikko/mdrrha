@@ -8,6 +8,7 @@ Process::Process(int p_id, int arrivalTime, int burstTime)
     this->originalBT = burstTime;
     this->completionTime = (2 ^ 32) - 1;
     this->responseTime = -1;
+    this->responseRatio = 0;
 }
 
 bool Process::Execute(int executionTime, int currentTime)

@@ -14,6 +14,7 @@ public:
     int p_id;
     int completionTime;
     int responseTime;
+    int responseRatio;
 
 public:
     Process(int p_id, int arrivalTime, int burstTime);

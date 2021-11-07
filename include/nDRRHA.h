@@ -2,20 +2,41 @@
 
 #include <cmath>
 #include <queue>
+#include <random>
+#include <unordered_map>
 
 #include "./../include/MeanPriorityQueue.h"
 #include "./Algorithm.h"
 
 
-class nDRRHA : public Algorithm
+class NDRRHA : public Algorithm
 {
 private:
     float quantum;
 
+private:
+    int mean, standardDeviation;
+
+    std::vector<Process*> readyQueue;
+    std::vector<Process*> processesToPushAfterRound;
+    std::vector<int> processesToErase;
+
+    std::unordered_map<int, int> tqs;
+
+
+
+private:
+    void SortReadyQueue();
+    void CalculateMeanAndSD();
+    float GetMean();
+    float GetNormalDistribution();
+    void FillTimeQuantums();
+    void FillReadyQueueFromPending();
+
 public:
-    nDRRHA(std::vector<Process> processesToExecute);
+    NDRRHA(std::vector<Process> processesToExecute);
 
     virtual void RunAlgo() override;
 
-    ~nDRRHA();
+    ~NDRRHA();
 };

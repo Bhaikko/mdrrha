@@ -16,7 +16,7 @@ int main()
     // GenerateRandomDataset(10, true);
 
     int test_case_no[] = {10, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500};
-    // int test_case_no[] = {6};
+    // int test_case_no[] = {500};
     int numTestCases = sizeof(test_case_no) / sizeof(int);
 
     // for (int i = 0; test_case_no[i]; i++)
@@ -52,8 +52,8 @@ int main()
         MDRRHA mdrrha(processesToExecute);
         mdrrha.RunAlgo();
 
-        // nDRRHA ndrrha(processesToExecute);
-        // ndrrha.RunAlgo();
+        NDRRHA ndrrha(processesToExecute);
+        ndrrha.RunAlgo();
 
     }
 

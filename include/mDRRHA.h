@@ -7,7 +7,6 @@
 #include "./../include/MeanPriorityQueue.h"
 #include "./Algorithm.h"
 
-
 class MDRRHA : public Algorithm
 {
 private:
@@ -20,13 +19,11 @@ private:
 
     std::unordered_map<int, int> tqs;
 
-
 private:
     void SortReadyQueue();
     int GetMedian();
     void FillTimeQuantums();
     void FillReadyQueueFromPending();
-
 
 public:
     MDRRHA(std::vector<Process> processesToExecute);
