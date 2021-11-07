@@ -49,6 +49,9 @@ int main()
         DRRHA drrha(processesToExecute);
         drrha.RunAlgo();
 
+        MDRRHA mdrrha(processesToExecute);
+        mdrrha.RunAlgo();
+
         // nDRRHA ndrrha(processesToExecute);
         // ndrrha.RunAlgo();
 
