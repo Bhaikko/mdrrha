@@ -1,21 +1,20 @@
-#include "./../include/nDRRHA.h"
+#include "./../include/HRRNHA.h"
 
 
-NDRRHA::NDRRHA(std::vector<Process> processesToExecute) : Algorithm(processesToExecute)
+HRRNHA::HRRNHA(std::vector<Process> processesToExecute) : Algorithm(processesToExecute)
 {
-    this->name = "NDRRHA";
-
-    std::srand(time(nullptr));
+    this->name = "HRRNHA";
 }
 
-void NDRRHA::SortReadyQueue()
+void HRRNHA::SortReadyQueue()
 {
-    std::sort(readyQueue.begin(), readyQueue.end(), [](Process* first, Process* second) -> bool {
-        return first->burstTime < second->burstTime;
-    });
+    // Calulate HRR of every process in Ready queue
+    
+
+    // Sort Processes based on HRR in decreasing order
 }
 
-float NDRRHA::GetMean()
+float HRRNHA::GetMean()
 {
     float mean = 0.0f;
     for (unsigned int i = 0; i < readyQueue.size(); i++) {
@@ -25,44 +24,23 @@ float NDRRHA::GetMean()
     return mean / (readyQueue.size() * 1.0f);
 }
 
-void NDRRHA::CalculateMeanAndSD()
+void HRRNHA::FillTimeQuantums()
 {
-    mean = GetMean(); 
-    int sqrSum = 0;
-    
-    for (unsigned int i = 0; i < readyQueue.size(); i++) {
-        sqrSum += (readyQueue[i]->burstTime - mean) * (readyQueue[i]->burstTime - mean);
-    }
-
-    standardDeviation = sqrt(sqrSum / readyQueue.size()); // Calculate Standard Deviation
-
-    // std::cout << mean << " " << standardDeviation << std::endl;
-
-}
-
-float NDRRHA::GetNormalDistribution()
-{   
-
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    
-    std::normal_distribution<float> distribution(mean, standardDeviation);
-
-    return distribution(gen);
-}
-
-void NDRRHA::FillTimeQuantums()
-{
-    CalculateMeanAndSD();
+    // Need to Consider, what metric will be used here 
+    // For Time quantum calculation
+    float mean = GetMean();
 
     for (unsigned int i = 0; i < readyQueue.size(); i++) {
-        // std::cout << GetNormalDistribution() << ", ";
+        int quantum = floor(
+            (mean / 2.0f) + ((mean / 2.0f) / readyQueue[i]->burstTime)
+        );
 
-        tqs[readyQueue[i]->p_id] = floor(GetNormalDistribution());
+        tqs[readyQueue[i]->p_id] = quantum;
+
     }
 }
 
-void NDRRHA::FillReadyQueueFromPending()
+void HRRNHA::FillReadyQueueFromPending()
 {
     for (unsigned int i = 0; i < processesToPushAfterRound.size(); i++) {
         readyQueue.push_back(processesToPushAfterRound[i]);
@@ -72,7 +50,7 @@ void NDRRHA::FillReadyQueueFromPending()
 
 }
 
-void NDRRHA::RunAlgo()
+void HRRNHA::RunAlgo()
 {
     Algorithm::RunAlgo();
 
@@ -168,10 +146,10 @@ void NDRRHA::RunAlgo()
     // Read Function Definition before calling
     // Prints Result on Console after Calculating avgTAT, etc
     // Write results such as avgTAT, avgWT, nCS to external .csv file
-    ProcessResult(true, true);
+    ProcessResult(true, false);
 
 }
 
-NDRRHA::~NDRRHA() { }
+HRRNHA::~HRRNHA() { }
 
 
