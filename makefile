@@ -10,6 +10,7 @@ SRCS_CPP = \
 	./lib/DRRHA.cpp \
 	./lib/mDRRHA.cpp \
 	./lib/nDRRHA.cpp \
+	./lib/HRRNHA.cpp \
 	./src/main.cpp \
 
 run:

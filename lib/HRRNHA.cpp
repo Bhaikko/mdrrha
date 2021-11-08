@@ -6,12 +6,23 @@ HRRNHA::HRRNHA(std::vector<Process> processesToExecute) : Algorithm(processesToE
     this->name = "HRRNHA";
 }
 
-void HRRNHA::SortReadyQueue()
+void HRRNHA::SortReadyQueue(int currentTime)
 {
     // Calulate HRR of every process in Ready queue
-    
+    for (unsigned int i = 0; i < readyQueue.size(); i++) {
+        readyQueue[i]->responseRatio = (
+            currentTime - readyQueue[i]->arrivalTime + readyQueue[i]->burstTime
+        ) / (readyQueue[i]->burstTime * 1.0f);
+
+        // std::cout << readyQueue[i]->responseRatio << " ";
+    }
+
+    // std::cout << std::endl;
 
     // Sort Processes based on HRR in decreasing order
+    std::sort(readyQueue.begin(), readyQueue.end(), [](Process* first, Process* second) -> bool {
+        return first->responseRatio > second->responseRatio;
+    });
 }
 
 float HRRNHA::GetMean()
@@ -72,9 +83,9 @@ void HRRNHA::RunAlgo()
 
     while (index < processesToExecute.size() || readyQueue.size() > 0) {
         FillReadyQueueFromPending();
-        SortReadyQueue();
+        SortReadyQueue(currentTime);
 
-        FillTimeQuantums();
+        FillTimeQuantums();     // Using Mean as Heuristic
 
         for (unsigned int i = 0; i < readyQueue.size(); i++) {
             nCS++;
@@ -146,7 +157,7 @@ void HRRNHA::RunAlgo()
     // Read Function Definition before calling
     // Prints Result on Console after Calculating avgTAT, etc
     // Write results such as avgTAT, avgWT, nCS to external .csv file
-    ProcessResult(true, false);
+    ProcessResult(true, true);
 
 }
 

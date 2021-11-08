@@ -19,7 +19,7 @@ private:
     std::unordered_map<int, int> tqs;
 
 private:
-    void SortReadyQueue();
+    void SortReadyQueue(int currentTime);
     float GetMean();
     void FillTimeQuantums();
     void FillReadyQueueFromPending();

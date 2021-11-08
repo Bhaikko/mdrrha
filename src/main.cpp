@@ -9,7 +9,7 @@
 #include "./../include/DRRHA.h"
 #include "./../include/mDRRHA.h"
 #include "./../include/nDRRHA.h"
-
+#include "./../include/HRRNHA.h"
 
 int main()
 {
@@ -38,22 +38,23 @@ int main()
 
         std::cout << std::endl;
 
-        // SJF sjf(processesToExecute);
+        SJF sjf(processesToExecute);
+        sjf.RunAlgo();
 
-        // sjf.RunAlgo();
+        RoundRobin roundRobin(processesToExecute, 10);
+        roundRobin.RunAlgo();
 
-        // RoundRobin roundRobin(processesToExecute, 10);
+        DRRHA drrha(processesToExecute);
+        drrha.RunAlgo();
 
-        // roundRobin.RunAlgo();
+        MDRRHA mdrrha(processesToExecute);
+        mdrrha.RunAlgo();
 
-        // DRRHA drrha(processesToExecute);
-        // drrha.RunAlgo();
+        NDRRHA ndrrha(processesToExecute);
+        ndrrha.RunAlgo();
 
-        // MDRRHA mdrrha(processesToExecute);
-        // mdrrha.RunAlgo();
-
-        // NDRRHA ndrrha(processesToExecute);
-        // ndrrha.RunAlgo();
+        HRRNHA hrrnha(processesToExecute);
+        hrrnha.RunAlgo();
 
     }
 
