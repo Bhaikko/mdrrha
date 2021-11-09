@@ -2,6 +2,7 @@
 
 #include <cmath>
 #include <queue>
+#include <random>
 #include <unordered_map>
 
 #include "./Algorithm.h"
@@ -12,6 +13,9 @@ private:
     float quantum;
 
 private:
+    int mean, standardDeviation;
+
+
     std::vector<Process*> readyQueue;
     std::vector<Process*> processesToPushAfterRound;
     std::vector<int> proccessToErase;
@@ -21,6 +25,9 @@ private:
 private:
     void SortReadyQueue(int currentTime);
     float GetMean();
+    int GetMedian();
+    void CalculateMeanAndSD();
+    float GetNormalDistribution();
     void FillTimeQuantums();
     void FillReadyQueueFromPending();
 

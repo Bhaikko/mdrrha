@@ -13,50 +13,50 @@
 
 int main()
 {
-    // GenerateRandomDataset(10, true);
+    GenerateRandomDataset(500, true);
 
     int test_case_no[] = {10, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500};
     // int test_case_no[] = {500};
     int numTestCases = sizeof(test_case_no) / sizeof(int);
 
     // for (int i = 0; test_case_no[i]; i++)
-    for (int i = 0; i < numTestCases; i++)
-    {
-        std::vector<Process> processesToExecute = ReadProcessesFromFile(test_case_no[i]);
+    // for (int i = 0; i < numTestCases; i++)
+    // {
+    //     std::vector<Process> processesToExecute = ReadProcessesFromFile(test_case_no[i]);
 
-        if (processesToExecute.size() == 0)
-        {
-            std::cerr << "Error in Reading Processes." << std::endl;
-            return -1;
-        }
+    //     if (processesToExecute.size() == 0)
+    //     {
+    //         std::cerr << "Error in Reading Processes." << std::endl;
+    //         return -1;
+    //     }
 
-        // std::cout << processesToExecute.size() << std::endl;
+    //     // std::cout << processesToExecute.size() << std::endl;
 
-        // for (unsigned int i = 0; i < processesToExecute.size(); i++) {
-        //     std::cout << processesToExecute[i].p_id << " " << processesToExecute[i].arrivalTime << " " << processesToExecute[i].burstTime << std::endl;
-        // }
+    //     // for (unsigned int i = 0; i < processesToExecute.size(); i++) {
+    //     //     std::cout << processesToExecute[i].p_id << " " << processesToExecute[i].arrivalTime << " " << processesToExecute[i].burstTime << std::endl;
+    //     // }
 
-        std::cout << std::endl;
+    //     std::cout << std::endl;
 
-        SJF sjf(processesToExecute);
-        sjf.RunAlgo();
+    //     SJF sjf(processesToExecute);
+    //     sjf.RunAlgo();
 
-        RoundRobin roundRobin(processesToExecute, 10);
-        roundRobin.RunAlgo();
+    //     RoundRobin roundRobin(processesToExecute, 10);
+    //     roundRobin.RunAlgo();
 
-        DRRHA drrha(processesToExecute);
-        drrha.RunAlgo();
+    //     DRRHA drrha(processesToExecute);
+    //     drrha.RunAlgo();
 
-        MDRRHA mdrrha(processesToExecute);
-        mdrrha.RunAlgo();
+    //     MDRRHA mdrrha(processesToExecute);
+    //     mdrrha.RunAlgo();
 
-        NDRRHA ndrrha(processesToExecute);
-        ndrrha.RunAlgo();
+    //     NDRRHA ndrrha(processesToExecute);
+    //     ndrrha.RunAlgo();
 
-        HRRNHA hrrnha(processesToExecute);
-        hrrnha.RunAlgo();
+    //     HRRNHA hrrnha(processesToExecute);
+    //     hrrnha.RunAlgo();
 
-    }
+    // }
 
     return 0;
 }

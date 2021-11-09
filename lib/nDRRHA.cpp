@@ -56,9 +56,15 @@ void NDRRHA::FillTimeQuantums()
     CalculateMeanAndSD();
 
     for (unsigned int i = 0; i < readyQueue.size(); i++) {
-        // std::cout << GetNormalDistribution() << ", ";
+        // Using Equation
+        int quantum = floor(
+            (GetNormalDistribution() / 2.0f) + ((GetNormalDistribution() / 2.0f) / readyQueue[i]->burstTime)
+        );
+        tqs[readyQueue[i]->p_id] = quantum;
 
-        tqs[readyQueue[i]->p_id] = floor(GetNormalDistribution());
+        // Not using Equation
+        // tqs[readyQueue[i]->p_id] = floor(GetNormalDistribution());
+
     }
 }
 

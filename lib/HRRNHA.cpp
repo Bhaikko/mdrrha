@@ -21,6 +21,10 @@ void HRRNHA::SortReadyQueue(int currentTime)
 
     // Sort Processes based on HRR in decreasing order
     std::sort(readyQueue.begin(), readyQueue.end(), [](Process* first, Process* second) -> bool {
+        if (abs(first->responseRatio - second->responseRatio) < 0.00001f) {
+            return first->arrivalTime < second->arrivalTime;
+        }
+
         return first->responseRatio > second->responseRatio;
     });
 }
@@ -35,18 +39,65 @@ float HRRNHA::GetMean()
     return mean / (readyQueue.size() * 1.0f);
 }
 
+int HRRNHA::GetMedian()
+{
+    std::vector<Process*> queueCopy(readyQueue);
+    std::sort(queueCopy.begin(), queueCopy.end(), [](Process* first, Process* second) -> bool {
+        return first->burstTime < second->burstTime;
+    });
+
+    return queueCopy[queueCopy.size() / 2]->burstTime;
+}
+
+void HRRNHA::CalculateMeanAndSD()
+{
+    mean = GetMean(); 
+    int sqrSum = 0;
+    
+    for (unsigned int i = 0; i < readyQueue.size(); i++) {
+        sqrSum += (readyQueue[i]->burstTime - mean) * (readyQueue[i]->burstTime - mean);
+    }
+
+    standardDeviation = sqrt(sqrSum / readyQueue.size()); // Calculate Standard Deviation
+
+    // std::cout << mean << " " << standardDeviation << std::endl;
+
+}
+
+float HRRNHA::GetNormalDistribution()
+{   
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    
+    std::normal_distribution<float> distribution(mean, standardDeviation);
+
+    return distribution(gen);
+}
+
 void HRRNHA::FillTimeQuantums()
 {
     // Need to Consider, what metric will be used here 
     // For Time quantum calculation
-    float mean = GetMean();
+    
+    // Reject Them
+    // float metric = GetMean();
+    // int metric = GetMedian();
+
+    // Only Consider This for metric
+    // Compare this only with DRRHA
+    CalculateMeanAndSD();
+
 
     for (unsigned int i = 0; i < readyQueue.size(); i++) {
-        int quantum = floor(
-            (mean / 2.0f) + ((mean / 2.0f) / readyQueue[i]->burstTime)
-        );
+        // int quantum = floor(
+        //     (metric / 2.0f) + ((metric / 2.0f) / readyQueue[i]->burstTime)
+        // );
 
-        tqs[readyQueue[i]->p_id] = quantum;
+        // tqs[readyQueue[i]->p_id] = quantum;
+
+
+        tqs[readyQueue[i]->p_id] = floor(GetNormalDistribution());
 
     }
 }
