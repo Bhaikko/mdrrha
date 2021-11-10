@@ -77,17 +77,9 @@ float HRRNHA::GetNormalDistribution()
 
 void HRRNHA::FillTimeQuantums()
 {
-    // Need to Consider, what metric will be used here 
-    // For Time quantum calculation
-    
-    // Reject Them
-    // float metric = GetMean();
-    // int metric = GetMedian();
-
     // Only Consider This for metric
     // Compare this only with DRRHA
     CalculateMeanAndSD();
-
 
     for (unsigned int i = 0; i < readyQueue.size(); i++) {
         // int quantum = floor(

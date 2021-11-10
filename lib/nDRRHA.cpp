@@ -57,13 +57,13 @@ void NDRRHA::FillTimeQuantums()
 
     for (unsigned int i = 0; i < readyQueue.size(); i++) {
         // Using Equation
-        int quantum = floor(
-            (GetNormalDistribution() / 2.0f) + ((GetNormalDistribution() / 2.0f) / readyQueue[i]->burstTime)
-        );
-        tqs[readyQueue[i]->p_id] = quantum;
+        // int quantum = floor(
+        //     (GetNormalDistribution() / 2.0f) + ((GetNormalDistribution() / 2.0f) / readyQueue[i]->burstTime)
+        // );
+        // tqs[readyQueue[i]->p_id] = quantum;
 
         // Not using Equation
-        // tqs[readyQueue[i]->p_id] = floor(GetNormalDistribution());
+        tqs[readyQueue[i]->p_id] = floor(GetNormalDistribution());
 
     }
 }
