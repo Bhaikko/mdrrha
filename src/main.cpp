@@ -3,7 +3,6 @@
 #include "./filehandler.h"
 #include "./dataset_generator.h"
 
-#include "./../include/MeanPriorityQueue.h"
 #include "./../include/RoundRobin.h"
 #include "./../include/SJF.h"
 #include "./../include/DRRHA.h"
