@@ -29,12 +29,12 @@
         for (int i = 0; i < numOfProcesses; i++) {
 
             if (bShouldGenerateArrivalTime) {
-                data += std::to_string(rand() % ARRIVAL_TIME_UPPER_BOUND + ARRIVAL_TIME_LOWER_BOUND) + ", ";
+                data += std::to_string(rand() % (ARRIVAL_TIME_UPPER_BOUND - ARRIVAL_TIME_LOWER_BOUND) + ARRIVAL_TIME_LOWER_BOUND) + ", ";
             } else {
                 data += std::to_string(0) + ", ";
             }
 
-            data += std::to_string(rand() % BURST_TIME_UPPER_BOUND + BURST_TIME_LOWER_BOUND);
+            data += std::to_string(rand() % (BURST_TIME_UPPER_BOUND - BURST_TIME_LOWER_BOUND) + BURST_TIME_LOWER_BOUND);
 
             data += "\n";
         }        
