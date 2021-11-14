@@ -15,6 +15,8 @@ int main()
     // GenerateRandomDataset(550, true);
 
     // int test_case_no[] = {10, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500};
+    // 150 interval divisions for 1500 dataset
+
     int test_case_no[] = {10};
     int numTestCases = sizeof(test_case_no) / sizeof(int);
 
