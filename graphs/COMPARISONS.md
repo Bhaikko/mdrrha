@@ -29,3 +29,9 @@
 * Kaggle Dataset
 * Random Dataset with Arrival Time zero
 * Random Dataset with Arrival Time non zero
+
+## Datasets Considered
+* Kaggle 1
+* Kaggle 2
+* Random Dataset
+* Case 2 of DRRHA
