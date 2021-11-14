@@ -22,8 +22,6 @@ private:
 
     std::unordered_map<int, int> tqs;
 
-
-
 private:
     void SortReadyQueue();
     void CalculateMeanAndSD();

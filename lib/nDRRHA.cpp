@@ -4,8 +4,6 @@
 NDRRHA::NDRRHA(std::vector<Process> processesToExecute) : Algorithm(processesToExecute)
 {
     this->name = "NDRRHA";
-
-    // std::srand(time(nullptr));
 }
 
 void NDRRHA::SortReadyQueue()
