@@ -36,12 +36,14 @@ int main()
         //     std::cout << processesToExecute[i].p_id << " " << processesToExecute[i].arrivalTime << " " << processesToExecute[i].burstTime << std::endl;
         // }
 
+        // Add RR to Line Graphs
+
         std::cout << std::endl;
 
         SJF sjf(processesToExecute);
         sjf.RunAlgo();
 
-        RoundRobin roundRobin(processesToExecute, 10);
+        RoundRobin roundRobin(processesToExecute, 40);
         roundRobin.RunAlgo();
 
         DRRHA drrha(processesToExecute);

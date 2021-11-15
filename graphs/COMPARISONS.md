@@ -1,37 +1,45 @@
-## Algos considered in Bar Graphs
-### The above Graph plots
-* Average Turn Around Time
+## Test Cases Bar Graph
+### It plots
+* Average Turnaround Time
 * Average Waiting Time
-* Average Response Time
 * Context Switches
+_On Same Graph_
 
+## Algos comparison in Experiments Bar Graphs
+### each metric (ATAT, AWT, ART) having its own bar graph
 ### Algos Considered
+* RR 
 * SJF
 * Round Robin
 * DRRHA
 * mDRRHA
 * nDRRHA with SJF
-* HRRNHA with normal distribution
 
-## Algos considered in Line graphs 
+## Algos considered in Experiments Line graphs 
 ### each metric (ATAT, AWT, ART) having its own line graph
+### Algos Considered
+* RR
 * SJF
 * DRRHA
 * mDRRHA
 * nDRRHA with SJF without Equation
 * HRRNHA with normal distribution without Equation
 
-## Algos considered in Direct Comparison
+## Direct Comparison on Bar Graph
 * nDRRHA with SJF
 * HRRNHA with normal distribution
 
-## Algorithms Executed on
-* Kaggle Dataset
-* Random Dataset with Arrival Time zero
-* Random Dataset with Arrival Time non zero
-
 ## Datasets Considered
-* Kaggle 1
-* Kaggle 2
-* Random Dataset
-* Case 2 of DRRHA
+* 4 test Cases From DRRHA
+* NDRRHA and HRRNA on smaller dataset mentioned in paper
+* Kaggle 1(500) for Experiment 1 and non zero case only
+* Random Data both AT Z and AT NZ case
+
+## Additional Notes
+* One Time Execution for Algo for a case number
+
+* add RR to line graphs
+* 40 for TQ RR
+
+* Test cases - Bar Graphs Only
+* Experiments - Bar and Line
